@@ -1,0 +1,132 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and reward points",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["citizen", "business", "recycler", "ngo", "admin"] },
+        "phone": { "type": "string", "maxLength": 20 },
+        "location": { "type": "string", "maxLength": 100 },
+        "rewardPoints": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "name", "email", "role"]
+    },
+    "WasteListing": {
+      "title": "WasteListing",
+      "description": "Recyclable waste listing created by citizens or businesses",
+      "type": "object",
+      "properties": {
+        "wasteId": { "type": "string", "pattern": "^WST-[A-Z]{3}-[0-9]{5}$" },
+        "ownerId": { "type": "string" },
+        "material": { "type": "string", "maxLength": 120 },
+        "category": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unit": { "type": "string", "enum": ["KG", "Tons", "Units"] },
+        "description": { "type": "string", "maxLength": 500 },
+        "imageUrl": { "type": "string" },
+        "location": { "type": "string" },
+        "status": { "type": "string" },
+        "recyclerId": { "type": "string" },
+        "verificationHash": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["wasteId", "ownerId", "material", "category", "quantity", "unit", "status"]
+    },
+    "WasteLifecycle": {
+      "title": "WasteLifecycle",
+      "description": "Cryptographic lifecycle milestone event for a waste batch",
+      "type": "object",
+      "properties": {
+        "eventId": { "type": "string" },
+        "wasteId": { "type": "string" },
+        "status": { "type": "string" },
+        "actorId": { "type": "string" },
+        "actorName": { "type": "string" },
+        "location": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "description": { "type": "string" },
+        "hash": { "type": "string" },
+        "previousHash": { "type": "string" },
+        "verified": { "type": "boolean" }
+      },
+      "required": ["eventId", "wasteId", "status", "actorId", "hash", "timestamp"]
+    },
+    "Recycler": {
+      "title": "Recycler",
+      "description": "Authorized recycling facility or upcycler",
+      "type": "object",
+      "properties": {
+        "recyclerId": { "type": "string" },
+        "name": { "type": "string" },
+        "materialsAccepted": { "type": "array" },
+        "capacity": { "type": "number" },
+        "availableCapacity": { "type": "number" },
+        "location": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "rating": { "type": "number" }
+      },
+      "required": ["recyclerId", "name", "capacity"]
+    },
+    "Reward": {
+      "title": "Reward",
+      "description": "Reward points ledger record",
+      "type": "object",
+      "properties": {
+        "rewardId": { "type": "string" },
+        "userId": { "type": "string" },
+        "points": { "type": "number" },
+        "type": { "type": "string", "enum": ["earned", "redeemed"] },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["rewardId", "userId", "points", "type"]
+    },
+    "FraudAlert": {
+      "title": "FraudAlert",
+      "description": "Anomaly detection record for waste recycling claims",
+      "type": "object",
+      "properties": {
+        "alertId": { "type": "string" },
+        "wasteId": { "type": "string" },
+        "type": { "type": "string" },
+        "description": { "type": "string" },
+        "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+        "status": { "type": "string", "enum": ["open", "investigating", "resolved"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["alertId", "wasteId", "type", "severity"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Public and account user documents"
+    },
+    "/wasteListings/{listingId}": {
+      "schema": "WasteListing",
+      "description": "Active and completed waste listings"
+    },
+    "/wasteLifecycle/{eventId}": {
+      "schema": "WasteLifecycle",
+      "description": "Chained cryptographic milestone ledger"
+    },
+    "/recyclers/{recyclerId}": {
+      "schema": "Recycler",
+      "description": "Directory of verified recyclers and capabilities"
+    },
+    "/rewards/{rewardId}": {
+      "schema": "Reward",
+      "description": "Reward point history and redemptions"
+    },
+    "/fraudAlerts/{alertId}": {
+      "schema": "FraudAlert",
+      "description": "Integrity anomaly alerts"
+    }
+  }
+}

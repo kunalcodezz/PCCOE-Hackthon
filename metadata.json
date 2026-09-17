@@ -1,0 +1,6 @@
+{
+  "name": "Circular Economy Marketplace & Waste Traceability",
+  "description": "From Waste to Value — Transparent. Traceable. Sustainable. Connects waste generators with recyclers with AI classification, Digital Waste Passports, and auditable verification ledger.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

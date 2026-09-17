@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-deep-forest: #12372a;
+    --color-dark-ink: #14221d;
+    --color-eco-green: #238b57;
+    --color-fresh-green: #53b978;
+    --color-warm-white: #f6f5ef;
+    --color-muted-stone: #d9ddd5;
+    --color-soft-sage: #e5efe8;
+    --color-warning: #d97706;
+    --color-danger: #c2413b;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #f6f5ef;
+    color: #14221d;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Subtle architectural grid pattern */
+.bg-grid-stone {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(217, 221, 213, 0.4) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(217, 221, 213, 0.4) 1px, transparent 1px);
+}
+
+.bg-dots-stone {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(18, 55, 42, 0.12) 1px, transparent 1px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f6f5ef;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9ddd5;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #238b57;
+}

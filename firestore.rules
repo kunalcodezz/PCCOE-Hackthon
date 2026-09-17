@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Public verification & waste listings read
+    match /wasteListings/{listingId} {
+      allow read: if true; // Publicly verifiable for traceability & passports
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if isSignedIn();
+    }
+
+    match /wasteLifecycle/{eventId} {
+      allow read: if true; // Publicly verifiable ledger for Digital Waste Passport
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+    }
+
+    match /recyclers/{recyclerId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isOwner(userId);
+    }
+
+    match /rewards/{rewardId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    match /fraudAlerts/{alertId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+  }
+}
