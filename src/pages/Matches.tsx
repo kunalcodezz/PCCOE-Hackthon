@@ -24,7 +24,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
   const listings = wasteStore.getListings();
   const recyclers = wasteStore.getRecyclers();
 
-  // Select active listing to find matches for
   const [selectedListingId, setSelectedListingId] = useState<string>(
     listings[0]?.wasteId || 'WST-PUN-00124'
   );
@@ -36,7 +35,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
     return listings.find((l) => l.wasteId === selectedListingId) || listings[0];
   }, [listings, selectedListingId]);
 
-  // Compute matches for the current listing
   const matches = useMemo(() => {
     if (!currentListing) return [];
     return findMatches(currentListing, recyclers);
@@ -80,7 +78,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
 
   return (
     <div className="space-y-6">
-      {/* Top Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -96,7 +93,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
           </div>
         </div>
 
-        {/* Waste Batch Selector Dropdown */}
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-slate-500 whitespace-nowrap">Matching For:</span>
           <select
@@ -113,7 +109,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* Success Alert Banner */}
       {requestSuccess && (
         <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center justify-between animate-in fade-in">
           <div className="flex items-center gap-2">
@@ -130,7 +125,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       )}
 
-      {/* Selected Waste Batch Detail Card */}
       <div className="bg-slate-900 text-white rounded-2xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <img
@@ -179,7 +173,6 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* Matches Grid */}
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>

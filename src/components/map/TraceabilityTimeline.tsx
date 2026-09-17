@@ -27,7 +27,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
   const [activeStep, setActiveStep] = useState(0);
   const estimatedTime = Math.max(5, Math.round(distanceKm * 5));
 
-  // Animate steps one by one
   useEffect(() => {
     if (activeStep < TIMELINE_STEPS.length - 1) {
       const timer = setTimeout(() => setActiveStep((s) => s + 1), 800);
@@ -37,7 +36,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
 
   return (
     <div className="bg-white rounded-xl border border-[#D9DDD5] shadow-lg overflow-hidden">
-      {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#12372A] to-[#238B57]">
         <div className="flex items-center gap-2">
           <Truck className="w-4 h-4 text-[#53B978]" />
@@ -59,7 +57,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Route Summary */}
       <div className="px-4 py-3 bg-[#F6F5EF] border-b border-[#D9DDD5]">
         <div className="flex items-center gap-2 text-xs">
           <div className="flex items-center gap-1.5 flex-1 min-w-0">
@@ -80,7 +77,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Timeline */}
       <div className="px-4 py-4">
         <div className="space-y-0">
           {TIMELINE_STEPS.map((step, i) => {
@@ -90,7 +86,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
 
             return (
               <div key={step.label} className="flex gap-3">
-                {/* Vertical connector line + node */}
                 <div className="flex flex-col items-center">
                   <div
                     className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${
@@ -110,7 +105,6 @@ export const TraceabilityTimeline: React.FC<Props> = ({
                   )}
                 </div>
 
-                {/* Content */}
                 <div className="pb-4 pt-0.5">
                   <div className={`text-xs font-semibold transition-colors duration-300 ${
                     completed ? 'text-[#12372A]' : 'text-[#7D9187]'

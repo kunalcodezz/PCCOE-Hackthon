@@ -33,7 +33,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
     error?: string;
   } | null>(null);
 
-  // Automatically run verification on initial mount
   useEffect(() => {
     if (events.length > 0) {
       runVerification();
@@ -42,7 +41,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
 
   const runVerification = async () => {
     setIsVerifying(true);
-    // Add realistic 400ms delay to illustrate live cryptographic checksum calculation
     await new Promise((r) => setTimeout(r, 400));
     const result = await verifyWasteLifecycle(events);
     setVerificationResult(result);
@@ -75,7 +73,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-100 selection:text-emerald-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Verification Header */}
         <div className="text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
             <Recycle className="w-4 h-4 text-emerald-600" />
@@ -89,7 +86,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
           </p>
         </div>
 
-        {/* Live Integrity Banner Card */}
         <div className="bg-white border-2 border-emerald-500 rounded-3xl p-6 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="flex items-center gap-3">
@@ -120,7 +116,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             </button>
           </div>
 
-          {/* Verification Checklist */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 text-xs">
             <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -148,7 +143,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
           </div>
         </div>
 
-        {/* Material & Custody Details */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-6">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -198,7 +192,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             </div>
           </div>
 
-          {/* Chronological Event History */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-3">
               Auditable Event Milestones ({events.length})
@@ -237,7 +230,6 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="text-center text-xs text-slate-400 pt-4">
           Verified on CircuTrace Open Registry • Prototype cryptographic ledger implementation
         </div>

@@ -1,10 +1,3 @@
-/**
- * AI Waste Classification Service
- *
- * Implements intelligent waste material and category detection from image inputs.
- * Supports server-proxied Gemini Vision API when configured, and falls back gracefully
- * to realistic machine vision heuristics and sample presets for instant hackathon demos.
- */
 
 import { AIAnalysisResult, WasteCategory } from '../types';
 
@@ -77,18 +70,12 @@ export const SAMPLE_WASTE_IMAGES = [
   },
 ];
 
-/**
- * Classifies waste using Gemini Vision API if backend endpoint is available,
- * or using intelligent vision classification heuristics.
- */
 export async function analyzeWasteImage(
   imageDataOrUrl: string,
   fileName?: string
 ): Promise<AIAnalysisResult> {
-  // Simulate network latency for realistic analysis UX
   await new Promise((resolve) => setTimeout(resolve, 1400));
 
-  // Try calling backend API if available
   try {
     const response = await fetch('/api/ai/analyze-waste', {
       method: 'POST',
@@ -103,10 +90,8 @@ export async function analyzeWasteImage(
       }
     }
   } catch {
-    // API endpoint not configured or offline; gracefully fall through to intelligent fallback
   }
 
-  // Check matching against sample images or filename clues
   const lowerName = (fileName || '').toLowerCase();
   const lowerUrl = (imageDataOrUrl || '').toLowerCase();
 
@@ -188,7 +173,6 @@ export async function analyzeWasteImage(
     };
   }
 
-  // Default realistic prediction
   return {
     material: 'PET Plastic (Polyethylene Terephthalate)',
     category: 'Plastic',

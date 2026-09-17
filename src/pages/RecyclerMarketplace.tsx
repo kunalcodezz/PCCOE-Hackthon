@@ -21,12 +21,11 @@ interface Props {
 export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) => {
   const listings = wasteStore.getListings();
   const recyclers = wasteStore.getRecyclers();
-  const activeRecycler = recyclers[0]; // EcoPlast Recycling Facility
+  const activeRecycler = recyclers[0];
 
   const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
   const [acceptedSuccess, setAcceptedSuccess] = useState<string | null>(null);
 
-  // Available open listings that are GENERATED or need pickup
   const openListings = listings.filter((l) => {
     const matchesCategory = categoryFilter === 'ALL' || l.category === categoryFilter;
     return matchesCategory;
@@ -45,7 +44,6 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -80,7 +78,6 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
         </div>
       )}
 
-      {/* Filter Tabs */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2">
         {['ALL', 'Plastic', 'E-Waste', 'Metal', 'Cardboard', 'Construction'].map((cat) => (
           <button
@@ -98,7 +95,6 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
         ))}
       </div>
 
-      {/* Feedstock Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {openListings.map((listing) => (
           <div

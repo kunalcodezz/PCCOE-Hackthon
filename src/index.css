@@ -25,7 +25,6 @@
   }
 }
 
-/* Subtle architectural grid pattern */
 .bg-grid-stone {
   background-size: 32px 32px;
   background-image: 
@@ -38,7 +37,6 @@
   background-image: radial-gradient(circle, rgba(18, 55, 42, 0.12) 1px, transparent 1px);
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

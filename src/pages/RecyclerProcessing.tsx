@@ -110,7 +110,6 @@ export const RecyclerProcessing: React.FC<Props> = ({ currentUser, navigate }) =
         </div>
       )}
 
-      {/* Queue Cards */}
       <div className="space-y-4">
         {activeBatches.map((batch) => {
           const isBusy = processingId === batch.wasteId;
@@ -144,7 +143,6 @@ export const RecyclerProcessing: React.FC<Props> = ({ currentUser, navigate }) =
                 </div>
               </div>
 
-              {/* Stage Transition Action Buttons */}
               <div className="flex items-center gap-2 flex-wrap lg:justify-end">
                 {batch.status === 'MATCHED' && (
                   <button

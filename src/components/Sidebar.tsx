@@ -68,7 +68,6 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
           </nav>
         </div>
 
-        {/* Recycler Operations Navigation */}
         {(userRole === 'recycler' || userRole === 'admin') && (
           <div>
             <div className="px-3 text-[11px] font-semibold text-purple-700 uppercase tracking-wider mb-2 flex items-center justify-between">
@@ -100,7 +99,6 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
           </div>
         )}
 
-        {/* Admin Navigation */}
         {userRole === 'admin' && (
           <div>
             <div className="px-3 text-[11px] font-semibold text-amber-700 uppercase tracking-wider mb-2 flex items-center justify-between">
@@ -133,7 +131,6 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
         )}
       </div>
 
-      {/* Sidebar Footer Info */}
       <div className="pt-4 border-t border-slate-200 text-[11px] text-slate-400 space-y-1">
         <div className="flex items-center justify-between text-slate-500 font-medium">
           <span>Ledger Protocol</span>

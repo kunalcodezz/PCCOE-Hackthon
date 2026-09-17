@@ -52,7 +52,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
     );
   }
 
-  // Determine next permissible lifecycle transition in the circular pipeline
   const getNextStatus = (current: WasteLifecycleStatus): WasteLifecycleStatus | null => {
     switch (current) {
       case 'GENERATED':
@@ -132,7 +131,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
 
   return (
     <div className="space-y-6">
-      {/* Top Header Card */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -172,7 +170,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
         </div>
       </div>
 
-      {/* Success Notification */}
       {successMessage && (
         <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center gap-2 animate-in fade-in">
           <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
@@ -180,7 +177,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
         </div>
       )}
 
-      {/* Interactive Recycler Dispatch & Lifecycle Step Controller (Crucial for Demo Story) */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-5 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -228,9 +224,7 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
         )}
       </div>
 
-      {/* Main Grid: Batch Summary & Vertical Cryptographic Timeline */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column: Batch Metadata */}
         <div className="space-y-4">
           <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs space-y-4">
             <div className="h-44 bg-slate-100 rounded-xl overflow-hidden border">
@@ -286,7 +280,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
           </div>
         </div>
 
-        {/* Right Column: Vertical Timeline */}
         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
           <div className="flex items-center justify-between mb-6">
             <div>

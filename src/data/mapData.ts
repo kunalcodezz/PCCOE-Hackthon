@@ -1,14 +1,6 @@
-/**
- * Map Mock Data — Waste Sources, Recyclers, and Industries
- *
- * All locations use realistic Pune-area coordinates.
- * This file is the single source of truth for map marker data.
- * Replace with API calls when backend is ready.
- */
 
 import type { WasteCategory } from '../types';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 export interface MapWasteSource {
   id: string;
@@ -51,7 +43,6 @@ export interface MapIndustry {
 
 export type MapMarkerData = MapWasteSource | MapRecycler | MapIndustry;
 
-// ─── Waste Source Locations ──────────────────────────────────────────────────
 
 export const wasteSourcesData: MapWasteSource[] = [
   {
@@ -128,7 +119,6 @@ export const wasteSourcesData: MapWasteSource[] = [
   },
 ];
 
-// ─── Recycler Locations ─────────────────────────────────────────────────────
 
 export const recyclersData: MapRecycler[] = [
   {
@@ -211,7 +201,6 @@ export const recyclersData: MapRecycler[] = [
   },
 ];
 
-// ─── Industry / Buyer Locations ──────────────────────────────────────────────
 
 export const industriesData: MapIndustry[] = [
   {
@@ -260,7 +249,6 @@ export const industriesData: MapIndustry[] = [
   },
 ];
 
-// ─── Helper: Get all markers as a unified array ─────────────────────────────
 
 export function getAllMapMarkers(): MapMarkerData[] {
   return [

@@ -39,7 +39,7 @@ export interface Coordinates {
 
 export interface WasteListing {
   id: string;
-  wasteId: string; // e.g. WST-PUN-00124
+  wasteId: string;
   ownerId: string;
   ownerName: string;
   ownerRole: UserRole;
@@ -85,8 +85,8 @@ export interface Recycler {
   name: string;
   email: string;
   materialsAccepted: WasteCategory[];
-  capacity: number; // in KG
-  availableCapacity: number; // in KG
+  capacity: number;
+  availableCapacity: number;
   location: string;
   coordinates: Coordinates;
   verified: boolean;

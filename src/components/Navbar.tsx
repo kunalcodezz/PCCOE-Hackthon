@@ -73,21 +73,18 @@ export const Navbar: React.FC<Props> = ({
     <header className="sticky top-0 z-40 bg-[#F6F5EF]/90 backdrop-blur-md border-b border-[#D9DDD5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
-          {/* Left Brand Identity: [Circular symbol] RE:LOOP */}
           <div className="flex items-center gap-8">
             <button
               type="button"
               onClick={() => navigate('/')}
               className="flex items-center gap-2.5 text-left cursor-pointer group"
             >
-              {/* Minimal Circular Symbol */}
               <span className="w-5 h-5 rounded-full border-2 border-[#12372A] border-t-[#53B978] transition-transform group-hover:rotate-180 duration-500 inline-block" />
               <span className="font-extrabold text-lg tracking-tight text-[#12372A] font-sans">
                 RE:LOOP
               </span>
             </button>
 
-            {/* Desktop Navigation: FLOW, MARKET, PASSPORT, IMPACT */}
             <nav className="hidden md:flex items-center gap-6 font-mono text-xs font-semibold text-[#32483E]">
               <button
                 type="button"
@@ -141,9 +138,7 @@ export const Navbar: React.FC<Props> = ({
             </nav>
           </div>
 
-          {/* Right Action Controls: SIGN IN & LIST WASTE */}
           <div className="flex items-center gap-3">
-            {/* Persona Switcher / SIGN IN Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
@@ -195,7 +190,6 @@ export const Navbar: React.FC<Props> = ({
               )}
             </div>
 
-            {/* Primary Action Button: LIST WASTE */}
             <button
               type="button"
               onClick={() => navigate('/list-waste')}
@@ -205,7 +199,6 @@ export const Navbar: React.FC<Props> = ({
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
 
-            {/* Mobile Hamburger Button */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -217,7 +210,6 @@ export const Navbar: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
           <div className="md:hidden border-t border-[#D9DDD5] py-4 space-y-2 font-mono text-xs">
             <button

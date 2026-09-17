@@ -1,9 +1,3 @@
-/**
- * Waste Management & Lifecycle Storage Service
- *
- * Provides real-time listing, matching, lifecycle progression,
- * cryptographic event logging, and fallback local-storage persistence.
- */
 
 import {
   FraudAlert,
@@ -26,7 +20,6 @@ const STORAGE_KEYS = {
   CURRENT_USER: 'circutrace_current_user_v1',
 };
 
-// Seed Users
 export const DEMO_USERS: Record<string, User> = {
   citizen: {
     uid: 'usr_citizen_01',
@@ -73,7 +66,6 @@ export const DEMO_USERS: Record<string, User> = {
   },
 };
 
-// Seed Recyclers
 export const SEED_RECYCLERS: Recycler[] = [
   {
     recyclerId: 'REC-PUN-01',
@@ -152,7 +144,6 @@ export const SEED_RECYCLERS: Recycler[] = [
   },
 ];
 
-// Seed Waste Listings
 export const SEED_LISTINGS: WasteListing[] = [
   {
     id: 'wst-1',
@@ -258,7 +249,6 @@ export const SEED_LISTINGS: WasteListing[] = [
   },
 ];
 
-// Seed Lifecycle Events for WST-PUN-00124 (complete loop)
 export const SEED_LIFECYCLE_EVENTS: WasteLifecycleEvent[] = [
   {
     eventId: 'EVT-1001',
@@ -360,7 +350,6 @@ export const SEED_LIFECYCLE_EVENTS: WasteLifecycleEvent[] = [
   },
 ];
 
-// Seed Fraud Alerts
 export const SEED_ALERTS: FraudAlert[] = [
   {
     alertId: 'ALT-PUN-001',
@@ -490,7 +479,6 @@ class WasteStore {
     const wasteId = `WST-PUN-${String(nextNum).padStart(5, '0')}`;
     const timestamp = new Date().toISOString();
 
-    // Initial Genesis Lifecycle Event
     const genesisEvent: Omit<WasteLifecycleEvent, 'hash' | 'verified'> = {
       eventId: `EVT-${Date.now()}`,
       wasteId,
@@ -525,12 +513,10 @@ class WasteStore {
     this.listings.unshift(newListing);
     this.lifecycleEvents.push(fullEvent);
 
-    // Award +10 reward points for creating listing
     this.currentUser.rewardPoints = (this.currentUser.rewardPoints || 0) + 10;
 
     this.save();
 
-    // Sync to Firestore if configured
     if (db) {
       try {
         await setDoc(doc(db, 'wasteListings', newListing.id), newListing);
@@ -585,7 +571,6 @@ class WasteStore {
 
     this.lifecycleEvents.push(fullEvent);
 
-    // Update listing status & hash
     this.listings[listingIndex] = {
       ...currentListing,
       status: targetStatus,
@@ -596,7 +581,6 @@ class WasteStore {
 
     this.save();
 
-    // Firestore sync
     if (db) {
       try {
         await updateDoc(doc(db, 'wasteListings', currentListing.id), {

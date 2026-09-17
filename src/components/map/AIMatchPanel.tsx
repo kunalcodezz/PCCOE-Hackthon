@@ -16,36 +16,28 @@ interface Props {
   onClose: () => void;
 }
 
-/**
- * Calculates mock AI match score between a waste source and a recycler.
- * Uses material compatibility, distance, and capacity.
- */
 function computeMockMatch(waste: MapWasteSource, recycler: MapRecycler): MatchResult {
   const dist = calculateDistanceKm(
     { lat: waste.latitude, lng: waste.longitude },
     { lat: recycler.latitude, lng: recycler.longitude }
   );
 
-  // Material compatibility: 40 pts
   const materialMatch = recycler.materialsAccepted.some(
     (m) => m.toLowerCase() === waste.wasteType.toLowerCase()
   ) ? 40 : 5;
 
-  // Distance score: up to 25 pts
   let distanceScore = 25;
   if (dist > 40) distanceScore = 5;
   else if (dist > 20) distanceScore = 12;
   else if (dist > 10) distanceScore = 18;
   else if (dist > 5) distanceScore = 22;
 
-  // Capacity score: up to 20 pts
   let capacityScore = 10;
   const qtyKg = waste.unit === 'tons' ? waste.quantity * 1000 : waste.quantity;
   if (recycler.processingCapacity >= qtyKg * 2) capacityScore = 20;
   else if (recycler.processingCapacity >= qtyKg) capacityScore = 16;
   else capacityScore = 4;
 
-  // Bonus: rating + verified
   let bonus = 0;
   if (recycler.verified) bonus += 4;
   bonus += Math.min(4, Math.round((recycler.rating / 5) * 4));
@@ -62,7 +54,6 @@ export const AIMatchPanel: React.FC<Props> = ({
   onSelectRecycler,
   onClose,
 }) => {
-  // Compute scores and sort descending
   const matches: MatchResult[] = recyclers
     .map((r) => computeMockMatch(selectedWaste, r))
     .sort((a, b) => b.score - a.score)
@@ -70,7 +61,6 @@ export const AIMatchPanel: React.FC<Props> = ({
 
   return (
     <div className="bg-white rounded-xl border border-[#D9DDD5] shadow-lg overflow-hidden">
-      {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-[#12372A] to-[#238B57]">
         <div className="flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-[#53B978]" />
@@ -87,7 +77,6 @@ export const AIMatchPanel: React.FC<Props> = ({
         </button>
       </div>
 
-      {/* Source Info */}
       <div className="px-4 py-2.5 bg-[#F6F5EF] border-b border-[#D9DDD5]">
         <div className="text-[10px] font-mono font-bold text-[#7D9187] uppercase">Source</div>
         <div className="text-xs font-semibold text-[#12372A]">{selectedWaste.name}</div>
@@ -96,7 +85,6 @@ export const AIMatchPanel: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Match Results */}
       <div className="divide-y divide-[#D9DDD5]">
         {matches.map((match, i) => {
           const materialMatches = match.recycler.materialsAccepted.some(
@@ -105,7 +93,6 @@ export const AIMatchPanel: React.FC<Props> = ({
 
           return (
             <div key={match.recycler.id} className="px-4 py-3 hover:bg-[#F6F5EF]/60 transition">
-              {/* Rank badge */}
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
@@ -126,7 +113,6 @@ export const AIMatchPanel: React.FC<Props> = ({
                 </div>
               </div>
 
-              {/* Stats */}
               <div className="grid grid-cols-3 gap-2 text-[11px] mb-2.5">
                 <div className="bg-[#F6F5EF] rounded-lg px-2 py-1.5 text-center">
                   <div className="text-[#7D9187] font-mono text-[10px]">Distance</div>
@@ -144,7 +130,6 @@ export const AIMatchPanel: React.FC<Props> = ({
                 </div>
               </div>
 
-              {/* Extras row */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 text-[11px]">
                   <span className="flex items-center gap-1 text-amber-600">

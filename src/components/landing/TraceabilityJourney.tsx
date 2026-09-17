@@ -77,7 +77,6 @@ export const TraceabilityJourney: React.FC = () => {
   return (
     <section className="py-20 sm:py-28 bg-[#F6F5EF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#D9DDD5] gap-6">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#238B57] font-semibold mb-2">
@@ -95,9 +94,7 @@ export const TraceabilityJourney: React.FC = () => {
           </p>
         </div>
 
-        {/* Integrated Schematic Route & Telemetry Interface */}
         <div className="bg-[#FFFFFF] border border-[#D9DDD5] rounded-sm shadow-sm p-6 sm:p-10 relative">
-          {/* Top Route Summary Bar */}
           <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-[#D9DDD5] font-mono text-xs">
             <div className="flex items-center gap-3">
               <span className="w-2.5 h-2.5 rounded-full bg-[#238B57]" />
@@ -110,12 +107,9 @@ export const TraceabilityJourney: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Left: Schematic Vector Route Map */}
             <div className="lg:col-span-7 bg-[#14221D] border border-[#32483E] rounded-xs p-6 relative overflow-hidden flex flex-col justify-between min-h-[380px]">
-              {/* Subtle schematic topographic grid */}
               <div className="absolute inset-0 bg-grid-stone pointer-events-none opacity-10" />
 
-              {/* Waypoint Status Readout */}
               <div className="relative z-10 flex items-center justify-between font-mono text-xs text-[#53B978]">
                 <div className="flex items-center gap-2">
                   <Navigation className="w-3.5 h-3.5 animate-spin" />
@@ -126,10 +120,8 @@ export const TraceabilityJourney: React.FC = () => {
                 </div>
               </div>
 
-              {/* SVG Schematic Waypoint Vector Path */}
               <div className="relative z-10 my-8 py-4">
                 <svg viewBox="0 0 600 160" className="w-full h-auto" xmlns="http://www.w3.org/2000/svg">
-                  {/* Background Track Line */}
                   <path
                     d="M 40 80 Q 180 20 300 80 T 560 80"
                     fill="none"
@@ -137,7 +129,6 @@ export const TraceabilityJourney: React.FC = () => {
                     strokeWidth="4"
                     strokeDasharray="4 4"
                   />
-                  {/* Active Verified Glow Line */}
                   <path
                     d="M 40 80 Q 180 20 300 80 T 560 80"
                     fill="none"
@@ -145,7 +136,6 @@ export const TraceabilityJourney: React.FC = () => {
                     strokeWidth="3"
                   />
 
-                  {/* Waypoint Node Pins */}
                   {[
                     { x: 40, y: 80, label: 'SOURCE', id: 'wp-1' },
                     { x: 170, y: 44, label: 'COLLECTED', id: 'wp-2' },
@@ -188,7 +178,6 @@ export const TraceabilityJourney: React.FC = () => {
                 </svg>
               </div>
 
-              {/* Waypoint Coordinates Bar */}
               <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-[#A8C5B2] border-t border-[#32483E] pt-3">
                 <div className="flex items-center gap-1.5 text-[#53B978]">
                   <MapPin className="w-3 h-3" />
@@ -200,7 +189,6 @@ export const TraceabilityJourney: React.FC = () => {
               </div>
             </div>
 
-            {/* Right: Selected Waypoint Telemetry Log */}
             <div className="lg:col-span-5 flex flex-col justify-between border border-[#D9DDD5] bg-[#F6F5EF]/50 p-6 rounded-xs font-mono">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#D9DDD5]">

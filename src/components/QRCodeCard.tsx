@@ -11,7 +11,6 @@ interface Props {
 export const QRCodeCard: React.FC<Props> = ({ wasteId, material, status }) => {
   const [copied, setCopied] = useState(false);
 
-  // Construct absolute verification URL
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
   const verifyUrl = `${origin}/verify/${wasteId}`;
 

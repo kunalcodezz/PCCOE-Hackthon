@@ -10,7 +10,6 @@ export const Footer: React.FC<Props> = ({ navigate }) => {
     <footer className="bg-[#14221D] text-[#A8C5B2] border-t border-[#32483E] py-12 text-xs font-mono">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-[#32483E]">
-          {/* Logo & Description */}
           <div className="max-w-sm">
             <button
               type="button"
@@ -27,7 +26,6 @@ export const Footer: React.FC<Props> = ({ navigate }) => {
             </p>
           </div>
 
-          {/* Navigation Links */}
           <div className="flex flex-wrap items-center gap-6 sm:gap-8 font-bold text-[#F6F5EF]">
             <button
               type="button"
@@ -74,7 +72,6 @@ export const Footer: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Bottom Subtext */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#7D9187]">
           <div>
             <span>© 2026 RE:LOOP Platform. All rights reserved.</span>

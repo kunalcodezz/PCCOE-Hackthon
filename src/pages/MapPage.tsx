@@ -21,37 +21,31 @@ interface Props {
 }
 
 export const MapPage: React.FC<Props> = ({ navigate }) => {
-  // ─── Filter & search state ──────────────────────────────────────────────
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
   const [activeWasteTypes, setActiveWasteTypes] = useState<string[]>([]);
 
-  // ─── Map interaction state ──────────────────────────────────────────────
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
   const [flyToCenter, setFlyToCenter] = useState<[number, number] | null>(null);
   const [flyToZoom, setFlyToZoom] = useState<number | undefined>(undefined);
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
 
-  // ─── Selection state ────────────────────────────────────────────────────
   const [selectedWaste, setSelectedWaste] = useState<MapWasteSource | null>(null);
   const [selectedRecycler, setSelectedRecycler] = useState<MapRecycler | null>(null);
   const [showAIPanel, setShowAIPanel] = useState(false);
   const [showTimeline, setShowTimeline] = useState(false);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  // ─── Waste type toggle ──────────────────────────────────────────────────
   const handleWasteTypeToggle = useCallback((type: string) => {
     setActiveWasteTypes((prev) =>
       prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
     );
   }, []);
 
-  // ─── Filter markers ────────────────────────────────────────────────────
   const filteredMarkers: MapMarkerData[] = useMemo(() => {
     let all: MapMarkerData[] = [];
 
-    // Category filter
     if (activeCategory === 'all' || activeCategory === 'waste') {
       all = [...all, ...wasteSourcesData];
     }
@@ -62,7 +56,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
       all = [...all, ...industriesData];
     }
 
-    // Waste type filter
     if (activeWasteTypes.length > 0) {
       all = all.filter((m) => {
         if (m.type === 'waste') {
@@ -74,7 +67,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
           );
         }
         if (m.type === 'industry') {
-          // Match industry by checking if required material contains any active waste type keyword
           return activeWasteTypes.some((wt) =>
             (m as MapIndustry).requiredMaterial.toLowerCase().includes(wt.toLowerCase())
           );
@@ -83,7 +75,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
       });
     }
 
-    // Search filter
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       all = all.filter((m) => {
@@ -107,7 +98,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
     return all;
   }, [activeCategory, activeWasteTypes, searchQuery]);
 
-  // ─── Geolocation ───────────────────────────────────────────────────────
   const handleUseMyLocation = useCallback(() => {
     if (!navigator.geolocation) {
       setLocationError('Geolocation is not supported by your browser.');
@@ -143,7 +133,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
     );
   }, []);
 
-  // ─── Marker interactions ───────────────────────────────────────────────
   const handleFindRecycler = useCallback((waste: MapWasteSource) => {
     setSelectedWaste(waste);
     setSelectedRecycler(null);
@@ -159,7 +148,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
       setShowAIPanel(false);
       setShowTimeline(false);
 
-      // Center the map to show both points
       if (selectedWaste) {
         const midLat = (selectedWaste.latitude + recycler.latitude) / 2;
         const midLng = (selectedWaste.longitude + recycler.longitude) / 2;
@@ -199,7 +187,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
     setShowTimeline(false);
   }, []);
 
-  // Computed distance for route summary
   const routeDistanceKm =
     selectedWaste && selectedRecycler
       ? calculateDistanceKm(
@@ -210,7 +197,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
 
   return (
     <div className="space-y-4">
-      {/* Page Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-[#E5EFE8] flex items-center justify-center">
@@ -224,7 +210,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Mobile filter toggle */}
         <button
           type="button"
           onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}
@@ -234,12 +219,9 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
         </button>
       </div>
 
-      {/* Search Bar */}
       <MapSearch searchQuery={searchQuery} onSearchChange={setSearchQuery} />
 
-      {/* Main Layout: Sidebar + Map + Panels */}
       <div className="flex gap-4 items-start">
-        {/* Left Filters Sidebar — hidden on mobile unless toggled */}
         <div className={`w-52 shrink-0 ${mobileFiltersOpen ? 'block' : 'hidden'} lg:block`}>
           <MapFilters
             activeCategory={activeCategory}
@@ -252,7 +234,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
           />
         </div>
 
-        {/* Center Map */}
         <div className="flex-1 min-w-0">
           <div className="h-[calc(100vh-16rem)] min-h-[400px]">
             <WasteMap
@@ -268,7 +249,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
             />
           </div>
 
-          {/* Route info bar — shown when a recycler is selected */}
           {selectedWaste && selectedRecycler && (
             <div className="mt-3 bg-white rounded-xl border border-[#D9DDD5] shadow-xs px-4 py-3 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-3 text-xs flex-wrap">
@@ -301,7 +281,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
           )}
         </div>
 
-        {/* Right Panel — AI Match or Traceability */}
         {(showAIPanel || showTimeline) && (
           <div className="w-80 shrink-0 hidden xl:block">
             {showAIPanel && selectedWaste && (
@@ -324,7 +303,6 @@ export const MapPage: React.FC<Props> = ({ navigate }) => {
         )}
       </div>
 
-      {/* Mobile panels — shown below map on smaller screens */}
       <div className="xl:hidden space-y-4">
         {showAIPanel && selectedWaste && (
           <AIMatchPanel

@@ -1,7 +1,6 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Default deny catch-all
     match /{document=**} {
       allow read, write: if false;
     }
@@ -14,16 +13,15 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == userId;
     }
 
-    // Public verification & waste listings read
     match /wasteListings/{listingId} {
-      allow read: if true; // Publicly verifiable for traceability & passports
+      allow read: if true;
       allow create: if isSignedIn();
       allow update: if isSignedIn();
       allow delete: if isSignedIn();
     }
 
     match /wasteLifecycle/{eventId} {
-      allow read: if true; // Publicly verifiable ledger for Digital Waste Passport
+      allow read: if true;
       allow create: if isSignedIn();
       allow update: if isSignedIn();
     }

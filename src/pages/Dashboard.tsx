@@ -40,13 +40,11 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
   const allEvents = wasteStore.getLifecycleEvents('WST-PUN-00124');
   const stats = wasteStore.getPlatformStats();
 
-  // Filter listings based on role (or show all for demo richness)
   const userListings = listings.filter(
     (l) => l.ownerId === currentUser.uid || currentUser.role === 'admin'
   );
   const displayListings = userListings.length > 0 ? userListings : listings;
 
-  // Chart data: Categories
   const categoryCountMap: Record<string, number> = {};
   for (const l of displayListings) {
     const kg = l.unit === 'Tons' ? l.quantity * 1000 : l.quantity;
@@ -57,7 +55,6 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
     weightKg: value,
   }));
 
-  // Chart data: Monthly recycling recovery trend
   const monthlyData = [
     { month: 'May', listed: 420, recycled: 280, diverted: 320 },
     { month: 'Jun', listed: 650, recycled: 490, diverted: 540 },
@@ -66,12 +63,10 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
     { month: 'Sep', listed: 1480, recycled: 1120, diverted: 1350 },
   ];
 
-  // Colors for charts
   const PIE_COLORS = ['#059669', '#0284c7', '#8b5cf6', '#f59e0b', '#10b981', '#64748b'];
 
   return (
     <div className="space-y-6">
-      {/* Top Welcome Banner */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -100,7 +95,6 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* 4 Metric Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Waste Listed"
@@ -135,9 +129,7 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         />
       </div>
 
-      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Monthly Recovery Trend */}
         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div>
@@ -182,7 +174,6 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
           </div>
         </div>
 
-        {/* Material Distribution Breakdown */}
         <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
           <div>
             <h3 className="font-bold text-slate-900 text-sm mb-1">Material Stream Share</h3>
@@ -229,7 +220,6 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* Active Waste Listings Table & Quick Links */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
         <div className="p-5 border-b border-slate-100 flex items-center justify-between gap-4">
           <div>

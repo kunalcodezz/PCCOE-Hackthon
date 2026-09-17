@@ -27,7 +27,6 @@ export const MatchCard: React.FC<Props> = ({
 }) => {
   const { recycler, score, breakdown, distanceKm } = match;
 
-  // Color code based on match score
   const getScoreBadge = (sc: number) => {
     if (sc >= 90) return 'bg-emerald-50 text-emerald-700 border-emerald-300 ring-1 ring-emerald-200';
     if (sc >= 75) return 'bg-blue-50 text-blue-700 border-blue-300 ring-1 ring-blue-200';
@@ -43,7 +42,6 @@ export const MatchCard: React.FC<Props> = ({
           : 'border-slate-200 hover:border-emerald-300 hover:shadow-sm'
       }`}
     >
-      {/* Top Header: Recycler Name, Score */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
           <div className="flex items-center gap-1.5 flex-wrap">
@@ -74,7 +72,6 @@ export const MatchCard: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Match Score Badge */}
         <div className="flex flex-col items-end shrink-0">
           <div className={`px-2.5 py-1 rounded-xl border text-sm font-bold ${getScoreBadge(score)}`}>
             {score}% Match
@@ -83,7 +80,6 @@ export const MatchCard: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Materials Accepted */}
       <div className="mb-3">
         <span className="text-[11px] text-slate-500 font-medium block mb-1">Accepted Streams:</span>
         <div className="flex flex-wrap gap-1">
@@ -98,7 +94,6 @@ export const MatchCard: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Capacity & Score Breakdown Bars */}
       <div className="grid grid-cols-2 gap-2 text-xs bg-slate-50 rounded-xl p-3 mb-4 border border-slate-100">
         <div>
           <span className="text-slate-400 text-[11px] block">Available Headroom</span>
@@ -119,7 +114,6 @@ export const MatchCard: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Action Footer */}
       <div className="flex items-center justify-between gap-3 pt-2 border-t border-slate-100">
         <div className="text-xs text-slate-500">
           Ready for scheduled dispatch

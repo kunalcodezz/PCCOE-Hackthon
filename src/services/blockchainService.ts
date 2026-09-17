@@ -1,18 +1,6 @@
-/**
- * Blockchain Verification Ledger Service
- *
- * Prototype Verification Ledger for Waste Traceability.
- * Provides SHA-256 event hashing, previous-block linking, and cryptographic validation.
- *
- * Notice: This is a prototype cryptographic ledger layer designed to easily bridge
- * to a permissioned network (Hyperledger Fabric) or public blockchain (Polygon / Ethereum).
- */
 
 import { WasteLifecycleEvent } from '../types';
 
-/**
- * Sorts object keys recursively for canonical JSON hashing
- */
 export function canonicalJson(obj: unknown): string {
   if (obj === null || typeof obj !== 'object') {
     return JSON.stringify(obj);
@@ -23,7 +11,6 @@ export function canonicalJson(obj: unknown): string {
   const keys = Object.keys(obj as Record<string, unknown>).sort();
   const sortedObj: Record<string, unknown> = {};
   for (const key of keys) {
-    // Exclude mutable or generated fields from the canonical payload
     if (key !== 'hash' && key !== 'verified') {
       sortedObj[key] = (obj as Record<string, unknown>)[key];
     }
@@ -31,9 +18,6 @@ export function canonicalJson(obj: unknown): string {
   return '{' + keys.map(k => JSON.stringify(k) + ':' + canonicalJson(sortedObj[k])).join(',') + '}';
 }
 
-/**
- * Computes SHA-256 hex digest using Web Crypto API or pure fallback
- */
 export async function createHash(input: string): Promise<string> {
   try {
     if (typeof crypto !== 'undefined' && crypto.subtle) {
@@ -46,13 +30,9 @@ export async function createHash(input: string): Promise<string> {
     console.warn('SubtleCrypto error, falling back to pseudo-sha256', err);
   }
 
-  // Pure JavaScript SHA-256 fallback implementation
   return '0x' + sha256Fallback(input);
 }
 
-/**
- * Creates transaction hash for a lifecycle event
- */
 export async function createTransactionHash(
   event: Omit<WasteLifecycleEvent, 'hash' | 'verified'>
 ): Promise<string> {
@@ -71,18 +51,12 @@ export async function createTransactionHash(
   return createHash(canonical);
 }
 
-/**
- * Verifies if an individual event's hash matches its contents
- */
 export async function verifyTransaction(event: WasteLifecycleEvent): Promise<boolean> {
   if (!event.hash) return false;
   const expectedHash = await createTransactionHash(event);
   return event.hash.toLowerCase() === expectedHash.toLowerCase();
 }
 
-/**
- * Verifies complete cryptographic chain of custody for a waste batch
- */
 export async function verifyWasteLifecycle(events: WasteLifecycleEvent[]): Promise<{
   isValid: boolean;
   brokenIndex?: number;
@@ -97,7 +71,6 @@ export async function verifyWasteLifecycle(events: WasteLifecycleEvent[]): Promi
     };
   }
 
-  // Sort events chronologically
   const sorted = [...events].sort(
     (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
   );
@@ -107,7 +80,6 @@ export async function verifyWasteLifecycle(events: WasteLifecycleEvent[]): Promi
   for (let i = 0; i < sorted.length; i++) {
     const ev = sorted[i];
 
-    // Check previous hash link (except if first block and previousHash was genesis)
     if (i > 0 && ev.previousHash !== prevHash) {
       return {
         isValid: false,
@@ -117,7 +89,6 @@ export async function verifyWasteLifecycle(events: WasteLifecycleEvent[]): Promi
       };
     }
 
-    // Check self hash computation
     const selfValid = await verifyTransaction(ev);
     if (!selfValid) {
       return {
@@ -138,9 +109,6 @@ export async function verifyWasteLifecycle(events: WasteLifecycleEvent[]): Promi
   };
 }
 
-/**
- * Standard SHA-256 implementation in pure JS (for environments without SubtleCrypto)
- */
 function sha256Fallback(ascii: string): string {
   function rightRotate(value: number, amount: number) {
     return (value >>> amount) | (value << (32 - amount));

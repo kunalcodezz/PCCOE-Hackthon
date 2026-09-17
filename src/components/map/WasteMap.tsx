@@ -5,9 +5,6 @@ import 'leaflet/dist/leaflet.css';
 import type { MapMarkerData, MapWasteSource, MapRecycler, MapIndustry } from '../../data/mapData';
 import { LocationPopup } from './LocationPopup';
 
-// ─── Fix Leaflet default icon issue ─────────────────────────────────────────
-// Leaflet's default icon references broken image paths in bundled builds.
-// We use custom divIcon SVG markers instead.
 
 function createSvgIcon(color: string, symbol: string, size = 32): L.DivIcon {
   return L.divIcon({
@@ -55,7 +52,6 @@ function getIconForType(type: string): L.DivIcon {
   }
 }
 
-// ─── Map controller that responds to center/zoom changes ────────────────────
 
 interface MapControllerProps {
   center: [number, number] | null;
@@ -72,7 +68,6 @@ function MapController({ center, zoom }: MapControllerProps) {
   return null;
 }
 
-// ─── Main WasteMap Component ────────────────────────────────────────────────
 
 interface Props {
   markers: MapMarkerData[];
@@ -86,7 +81,6 @@ interface Props {
   onViewIndustry: (industry: MapIndustry) => void;
 }
 
-// Pune center coordinates
 const DEFAULT_CENTER: [number, number] = [18.5204, 73.8567];
 const DEFAULT_ZOOM = 12;
 
@@ -101,7 +95,6 @@ export const WasteMap: React.FC<Props> = ({
   onViewRecycler,
   onViewIndustry,
 }) => {
-  // Route polyline between waste source and selected recycler
   const routePositions: [number, number][] | null =
     selectedWaste && selectedRecycler
       ? [
@@ -124,10 +117,8 @@ export const WasteMap: React.FC<Props> = ({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {/* Fly-to controller */}
         <MapController center={flyToCenter} zoom={flyToZoom} />
 
-        {/* User location marker */}
         {userLocation && (
           <Marker position={userLocation} icon={userLocationIcon}>
             <Popup>
@@ -138,7 +129,6 @@ export const WasteMap: React.FC<Props> = ({
           </Marker>
         )}
 
-        {/* Data markers */}
         {markers.map((marker) => {
           const position: [number, number] = [marker.latitude, marker.longitude];
           return (
@@ -155,7 +145,6 @@ export const WasteMap: React.FC<Props> = ({
           );
         })}
 
-        {/* Route polyline */}
         {routePositions && (
           <Polyline
             positions={routePositions}

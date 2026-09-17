@@ -55,7 +55,6 @@ export const LifecycleTimeline: React.FC<Props> = ({ events }) => {
 
         return (
           <div key={event.eventId} className="relative group">
-            {/* Timeline Dot Indicator */}
             <div
               className={`absolute -left-6 sm:-left-8 top-1 w-6 h-6 rounded-full flex items-center justify-center border-2 ${
                 isLast
@@ -66,7 +65,6 @@ export const LifecycleTimeline: React.FC<Props> = ({ events }) => {
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
 
-            {/* Event Card */}
             <div className="bg-white border border-slate-200 rounded-xl p-4 sm:p-5 shadow-xs transition hover:border-emerald-300">
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
                 <div className="flex items-center gap-2.5">
@@ -87,10 +85,8 @@ export const LifecycleTimeline: React.FC<Props> = ({ events }) => {
                 </div>
               </div>
 
-              {/* Event Description */}
               <p className="text-sm font-medium text-slate-800 mb-3">{event.description}</p>
 
-              {/* Actor & Location Metadata */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50 rounded-lg p-2.5 mb-3 border border-slate-100">
                 <div className="flex items-center gap-1.5 truncate">
                   <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -103,7 +99,6 @@ export const LifecycleTimeline: React.FC<Props> = ({ events }) => {
                 </div>
               </div>
 
-              {/* Cryptographic Ledger Block Section */}
               <div className="pt-2 border-t border-slate-100">
                 <div className="flex items-center justify-between gap-2">
                   <button

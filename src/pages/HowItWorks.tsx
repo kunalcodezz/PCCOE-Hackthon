@@ -19,7 +19,6 @@ interface Props {
 export const HowItWorks: React.FC<Props> = ({ navigate }) => {
   return (
     <div className="max-w-4xl mx-auto space-y-10 py-6">
-      {/* Title */}
       <div className="text-center space-y-3">
         <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
           Architecture &amp; Whitepaper Brief
@@ -33,9 +32,7 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
         </p>
       </div>
 
-      {/* 5 Core Pillars */}
       <div className="space-y-6">
-        {/* Pillar 1 */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <Sparkles className="w-6 h-6" />
@@ -56,7 +53,6 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Pillar 2 */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
             <Layers className="w-6 h-6" />
@@ -89,7 +85,6 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Pillar 3 */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
             <Lock className="w-6 h-6" />
@@ -110,7 +105,6 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Pillar 4 */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
             <QrCode className="w-6 h-6" />
@@ -126,7 +120,6 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
           </div>
         </div>
 
-        {/* Pillar 5 */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row gap-6 items-start">
           <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
             <TrendingUp className="w-6 h-6" />
@@ -143,7 +136,6 @@ export const HowItWorks: React.FC<Props> = ({ navigate }) => {
         </div>
       </div>
 
-      {/* Action Footer */}
       <div className="text-center pt-4">
         <button
           type="button"

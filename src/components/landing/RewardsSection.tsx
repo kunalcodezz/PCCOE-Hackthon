@@ -40,7 +40,6 @@ export const RewardsSection: React.FC<Props> = ({ onJoinAsCitizen }) => {
   return (
     <section className="py-20 sm:py-28 bg-[#F6F5EF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#D9DDD5] gap-6">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#238B57] font-semibold mb-2">
@@ -58,9 +57,7 @@ export const RewardsSection: React.FC<Props> = ({ onJoinAsCitizen }) => {
           </p>
         </div>
 
-        {/* Human and Approachable Circular Score Card + Flow */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
-          {/* User Score Card Preview */}
           <div className="lg:col-span-4 bg-[#FFFFFF] border-2 border-[#12372A] rounded-sm p-6 sm:p-8 flex flex-col justify-between shadow-xs">
             <div>
               <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#D9DDD5]">
@@ -100,7 +97,6 @@ export const RewardsSection: React.FC<Props> = ({ onJoinAsCitizen }) => {
             </div>
           </div>
 
-          {/* Sequential 4-Step Process: Recycle -> Verify -> Earn -> Redeem */}
           <div className="lg:col-span-8 bg-[#FFFFFF] border border-[#D9DDD5] rounded-sm p-6 sm:p-8 flex flex-col justify-between shadow-xs">
             <div className="text-xs font-mono font-bold text-[#12372A] uppercase tracking-wider pb-3 border-b border-[#D9DDD5] mb-6">
               THE 4-STEP CIVIC INCENTIVE LOOP
@@ -139,7 +135,6 @@ export const RewardsSection: React.FC<Props> = ({ onJoinAsCitizen }) => {
           </div>
         </div>
 
-        {/* 3 Real Rewards Showcases */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {rewards.map((reward) => (
             <div

@@ -1,9 +1,3 @@
-/**
- * Firebase Client Initialization
- *
- * Configures Firebase Auth, Firestore, and Storage.
- * Gracefully provides safe fallback indicators when running in offline hackathon demo mode.
- */
 
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';

@@ -11,7 +11,6 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
   return (
     <section id="market" className="py-20 sm:py-28 bg-[#F6F5EF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#D9DDD5] gap-6">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#238B57] font-semibold mb-2">
@@ -29,9 +28,7 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
           </p>
         </div>
 
-        {/* Logistics Network Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left: Origin Waste Batch Card */}
           <div className="lg:col-span-5 bg-[#FFFFFF] border-2 border-[#12372A] p-6 sm:p-8 rounded-sm shadow-md relative">
             <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#D9DDD5] font-mono text-xs">
               <div className="flex items-center gap-2">
@@ -83,7 +80,6 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
             </div>
           </div>
 
-          {/* Middle: Schematic Connecting Flow Indicators */}
           <div className="lg:col-span-2 hidden lg:flex flex-col items-center justify-center space-y-4 font-mono text-xs text-[#556960]">
             <div className="w-full border-t-2 border-dashed border-[#238B57] relative">
               <div className="absolute right-0 -top-1.5 w-3 h-3 border-t-2 border-r-2 border-[#238B57] rotate-45" />
@@ -96,9 +92,7 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
             </div>
           </div>
 
-          {/* Right: Matched Recycler Candidates */}
           <div className="lg:col-span-5 space-y-4">
-            {/* Candidate 1: GreenLoop (Prime Match) */}
             <div
               onClick={() => setSelectedMatch('greenloop')}
               className={`p-6 rounded-sm border-2 transition-all duration-200 cursor-pointer ${
@@ -148,7 +142,6 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
               </div>
             </div>
 
-            {/* Candidate 2: Renew Materials Co. */}
             <div
               onClick={() => setSelectedMatch('renew')}
               className={`p-6 rounded-sm border transition-all duration-200 cursor-pointer ${

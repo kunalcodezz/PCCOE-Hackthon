@@ -70,7 +70,6 @@ export const AdminDashboard: React.FC<Props> = ({ currentUser, navigate }) => {
 
   return (
     <div className="space-y-6">
-      {/* Top Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
@@ -96,7 +95,6 @@ export const AdminDashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         </button>
       </div>
 
-      {/* Admin Top Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Total Users Registered"
@@ -130,7 +128,6 @@ export const AdminDashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         />
       </div>
 
-      {/* Fraud & Discrepancy Radar Panel */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -194,7 +191,6 @@ export const AdminDashboard: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* Recycler License Verification Table */}
       <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
         <div className="p-5 border-b border-slate-100">
           <h3 className="font-bold text-slate-900 text-base">Accredited Recycler Registry</h3>

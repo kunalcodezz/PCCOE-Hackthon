@@ -130,7 +130,6 @@ export const MaterialFlow: React.FC = () => {
   return (
     <section id="flow" className="py-20 sm:py-28 bg-[#F6F5EF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#D9DDD5] gap-6">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#238B57] font-semibold mb-2">
@@ -148,7 +147,6 @@ export const MaterialFlow: React.FC = () => {
           </p>
         </div>
 
-        {/* Material Streams Filter Bar */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar">
           <span className="text-[11px] font-mono text-[#556960] uppercase tracking-wider mr-2 hidden sm:inline">
             Material:
@@ -172,12 +170,9 @@ export const MaterialFlow: React.FC = () => {
           })}
         </div>
 
-        {/* Editorial Network Node Diagram */}
         <div className="bg-[#FFFFFF] border border-[#D9DDD5] rounded-sm p-6 sm:p-10 shadow-xs relative">
-          {/* Subtle Grid backdrop */}
           <div className="absolute inset-0 bg-dots-stone pointer-events-none opacity-40 rounded-sm" />
 
-          {/* Telemetry metadata bar */}
           <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pb-6 mb-8 border-b border-[#D9DDD5] font-mono text-xs">
             <div>
               <span className="text-[#7D9187]">STREAM DESIGNATION:</span>{' '}
@@ -195,9 +190,7 @@ export const MaterialFlow: React.FC = () => {
             </div>
           </div>
 
-          {/* Sequential 5-Stage Network Nodes */}
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-4 items-stretch">
-            {/* Stage 1: Sources */}
             <div className="flex flex-col justify-between border border-[#D9DDD5] bg-[#F6F5EF]/60 p-5 rounded-sm relative">
               <div className="absolute -top-3 left-4 bg-[#12372A] text-[#F6F5EF] text-[10px] font-mono font-bold px-2 py-0.5 rounded-xs">
                 STAGE 01
@@ -221,7 +214,6 @@ export const MaterialFlow: React.FC = () => {
               </div>
             </div>
 
-            {/* Stage 2: Collection */}
             <div className="flex flex-col justify-between border border-[#D9DDD5] bg-[#F6F5EF]/60 p-5 rounded-sm relative">
               <div className="absolute -top-3 left-4 bg-[#12372A] text-[#F6F5EF] text-[10px] font-mono font-bold px-2 py-0.5 rounded-xs">
                 STAGE 02
@@ -246,7 +238,6 @@ export const MaterialFlow: React.FC = () => {
               </div>
             </div>
 
-            {/* Stage 3: Recyclers */}
             <div className="flex flex-col justify-between border border-[#238B57]/40 bg-[#E5EFE8]/40 p-5 rounded-sm relative ring-1 ring-[#238B57]/20">
               <div className="absolute -top-3 left-4 bg-[#238B57] text-[#F6F5EF] text-[10px] font-mono font-bold px-2 py-0.5 rounded-xs">
                 STAGE 03 / MATCH
@@ -270,7 +261,6 @@ export const MaterialFlow: React.FC = () => {
               </div>
             </div>
 
-            {/* Stage 4: Processing */}
             <div className="flex flex-col justify-between border border-[#D9DDD5] bg-[#F6F5EF]/60 p-5 rounded-sm relative">
               <div className="absolute -top-3 left-4 bg-[#12372A] text-[#F6F5EF] text-[10px] font-mono font-bold px-2 py-0.5 rounded-xs">
                 STAGE 04
@@ -294,7 +284,6 @@ export const MaterialFlow: React.FC = () => {
               </div>
             </div>
 
-            {/* Stage 5: Manufacturers / Re-Entry */}
             <div className="flex flex-col justify-between border border-[#12372A] bg-[#12372A] text-[#F6F5EF] p-5 rounded-sm relative shadow-sm">
               <div className="absolute -top-3 left-4 bg-[#53B978] text-[#12372A] text-[10px] font-mono font-bold px-2 py-0.5 rounded-xs">
                 STAGE 05 / REUSE

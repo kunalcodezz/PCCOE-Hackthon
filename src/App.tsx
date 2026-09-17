@@ -19,16 +19,13 @@ import { MapPage } from './pages/MapPage';
 import { BottomNavBar } from './components/ui/bottom-nav-bar';
 
 export function App() {
-  // Navigation route state
   const [currentRoute, setCurrentRoute] = useState<string>(() => {
     return window.location.pathname || '/';
   });
 
-  // Current logged in demo user
   const [currentRole, setCurrentRole] = useState<UserRole>('business');
   const [currentUser, setCurrentUser] = useState<User>(DEMO_USERS.business);
 
-  // Sync route with browser history
   useEffect(() => {
     const handlePopState = () => {
       setCurrentRoute(window.location.pathname || '/');
@@ -56,21 +53,17 @@ export function App() {
     }
   };
 
-  // Route matching parser
   const renderRouteContent = () => {
-    // Check for public verify route: /verify/:wasteId
     if (currentRoute.startsWith('/verify/')) {
       const wasteId = currentRoute.replace('/verify/', '') || 'WST-PUN-00124';
       return <VerifyWaste wasteId={wasteId} navigate={navigate} />;
     }
 
-    // Check for track route: /track/:wasteId
     if (currentRoute.startsWith('/track/')) {
       const wasteId = currentRoute.replace('/track/', '') || 'WST-PUN-00124';
       return <WasteTracking wasteId={wasteId} currentUser={currentUser} navigate={navigate} />;
     }
 
-    // Check for passport route: /passport/:wasteId
     if (currentRoute.startsWith('/passport/')) {
       const wasteId = currentRoute.replace('/passport/', '') || 'WST-PUN-00124';
       return <WastePassport wasteId={wasteId} currentUser={currentUser} navigate={navigate} />;
@@ -111,7 +104,6 @@ export function App() {
     }
   };
 
-  // If on the public verification page (/verify/...), show standalone clean portal
   const isPublicVerificationRoute = currentRoute.startsWith('/verify/');
 
   if (isPublicVerificationRoute) {
@@ -122,12 +114,10 @@ export function App() {
     );
   }
 
-  // Is this the home landing page?
   const isLandingPage = currentRoute === '/' || currentRoute === '/how-it-works';
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col selection:bg-emerald-100 selection:text-emerald-900">
-      {/* Top Universal Navbar */}
       <Navbar
         currentUser={currentUser}
         onSelectRole={handleSelectRole}
@@ -136,7 +126,6 @@ export function App() {
         onResetDemo={handleResetDemo}
       />
 
-      {/* Main Layout Area */}
       {isLandingPage ? (
         <main className="flex-1 pb-20 lg:pb-0">{renderRouteContent()}</main>
       ) : (
@@ -146,7 +135,6 @@ export function App() {
         </div>
       )}
 
-      {/* Mobile/Tablet Floating Bottom Navigation */}
       <BottomNavBar
         stickyBottom
         className="lg:hidden"
@@ -155,7 +143,6 @@ export function App() {
         userRole={currentUser.role}
       />
 
-      {/* Universal Footer for internal portal pages */}
       {!isLandingPage && (
         <footer className="bg-white border-t border-[#D9DDD5] py-6 text-xs text-[#556960] pb-20 lg:pb-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">

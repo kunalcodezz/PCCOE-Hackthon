@@ -62,7 +62,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold text-slate-900">Waste Listings &amp; Inventory</h1>
@@ -81,7 +80,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
         </button>
       </div>
 
-      {/* Filter Bar */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs flex flex-col md:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
@@ -123,7 +121,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* Listing Cards / Grid */}
       {filteredListings.length === 0 ? (
         <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center text-slate-500">
           <Package className="w-10 h-10 text-slate-300 mx-auto mb-2" />
@@ -148,7 +145,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
               className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-xs hover:border-emerald-300 transition flex flex-col justify-between"
             >
               <div>
-                {/* Card Image Banner */}
                 <div className="h-40 bg-slate-100 relative">
                   <img src={item.imageUrl} alt={item.material} className="w-full h-full object-cover" />
                   <div className="absolute top-2.5 right-2.5">
@@ -159,7 +155,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
                   </div>
                 </div>
 
-                {/* Card Content */}
                 <div className="p-4 space-y-3">
                   <div>
                     <h3 className="font-bold text-slate-900 text-sm line-clamp-1">{item.material}</h3>
@@ -187,7 +182,6 @@ export const MyListings: React.FC<Props> = ({ currentUser, navigate }) => {
                 </div>
               </div>
 
-              {/* Action Buttons */}
               <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-2">
                 <button
                   type="button"

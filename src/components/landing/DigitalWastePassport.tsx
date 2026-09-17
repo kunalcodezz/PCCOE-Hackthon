@@ -23,7 +23,6 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
   return (
     <section id="passport" className="py-20 sm:py-32 bg-[#FFFFFF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-[#E5EFE8] border border-[#D9DDD5] text-[#12372A] text-xs font-mono font-semibold mb-4">
             <ShieldCheck className="w-3.5 h-3.5 text-[#238B57]" />
@@ -37,12 +36,9 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
           </p>
         </div>
 
-        {/* Signature Digital Waste Passport - Physical Manifest / Cryptographic Certificate Hybrid */}
         <div className="max-w-4xl mx-auto bg-[#F6F5EF] border-2 border-[#12372A] rounded-sm shadow-2xl p-6 sm:p-10 lg:p-12 relative overflow-hidden">
-          {/* Subtle Guilloché / Grid Pattern on Document */}
           <div className="absolute inset-0 bg-grid-stone pointer-events-none opacity-40" />
 
-          {/* Official Document Top Bar */}
           <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-8 border-b-2 border-[#12372A] gap-4">
             <div>
               <div className="flex items-center gap-2">
@@ -67,7 +63,6 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
             </div>
           </div>
 
-          {/* Core Material Specification Row */}
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 bg-[#FFFFFF] border border-[#D9DDD5] rounded-xs mb-8 font-mono text-xs">
             <div>
               <div className="text-[#7D9187] uppercase text-[10px]">CLASSIFICATION</div>
@@ -86,7 +81,6 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
             </div>
           </div>
 
-          {/* Parties Involved Row */}
           <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 font-mono text-xs">
             <div className="p-4 bg-[#FFFFFF] border border-[#D9DDD5] rounded-xs">
               <div className="text-[#7D9187] uppercase text-[10px] flex items-center gap-1 mb-1">
@@ -109,7 +103,6 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
             </div>
           </div>
 
-          {/* Sequential Cryptographic Chain of Custody Checklist */}
           <div className="relative z-10 mb-8">
             <div className="text-xs font-mono font-bold text-[#12372A] uppercase tracking-wider mb-3">
               CRYPTOGRAPHIC CHAIN OF CUSTODY
@@ -142,10 +135,8 @@ export const DigitalWastePassport: React.FC<Props> = ({ onVerifyPassport }) => {
             </div>
           </div>
 
-          {/* Security & Cryptographic Verification Strip (QR + Hash) */}
           <div className="relative z-10 p-5 bg-[#12372A] text-[#F6F5EF] rounded-xs flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-5">
-              {/* Live QR Code representation */}
               <div className="bg-[#FFFFFF] p-2 rounded-xs shrink-0 shadow-sm">
                 <QRCodeSVG
                   value={qrTargetUrl}

@@ -37,7 +37,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [activeStep, setActiveStep] = useState(0);
 
-  // Rotate active orbital loop stage
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % LOOP_NODES.length);
@@ -45,7 +44,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
     return () => clearInterval(timer);
   }, []);
 
-  // Initialize and run Canvas particle system
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -80,11 +78,11 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
     }
 
     const particleColors = [
-      '#238B57', // Eco Green
-      '#53B978', // Fresh Green
-      '#74A982', // Sage Green
-      '#A8C5B2', // Soft Sage
-      '#12372A', // Deep Forest
+      '#238B57',
+      '#53B978',
+      '#74A982',
+      '#A8C5B2',
+      '#12372A',
     ];
 
     let particles: Particle[] = [];
@@ -95,7 +93,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
       const centerY = height * 0.48;
       const baseRadius = Math.min(width, height) * 0.32;
 
-      // 1. Orbital Ring Particles (metaphor for living material loop)
       const ringCount = 75;
       for (let i = 0; i < ringCount; i++) {
         const orbitRadius = baseRadius * (0.55 + Math.random() * 0.65);
@@ -120,7 +117,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
         });
       }
 
-      // 2. Ambient material network nodes
       const ambientCount = 35;
       for (let i = 0; i < ambientCount; i++) {
         const x = Math.random() * width;
@@ -145,11 +141,9 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
 
     initParticles();
 
-    // Render loop
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse lerping
       mouse.x += (mouse.targetX - mouse.x) * 0.05;
       mouse.y += (mouse.targetY - mouse.y) * 0.05;
 
@@ -157,25 +151,21 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
       const centerY = height * 0.48;
       const baseRadius = Math.min(width, height) * 0.32;
 
-      // Draw subtle orbital rings (editorial Swiss design)
       ctx.save();
       ctx.strokeStyle = '#D9DDD5';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 6]);
 
-      // Inner orbital guide
       ctx.beginPath();
       ctx.arc(centerX, centerY, baseRadius * 0.65, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Main orbital loop
       ctx.strokeStyle = 'rgba(35, 139, 87, 0.22)';
       ctx.setLineDash([6, 8]);
       ctx.beginPath();
       ctx.arc(centerX, centerY, baseRadius, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Outer orbital guide
       ctx.strokeStyle = 'rgba(217, 221, 213, 0.4)';
       ctx.setLineDash([2, 10]);
       ctx.beginPath();
@@ -183,7 +173,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
       ctx.stroke();
       ctx.restore();
 
-      // Connect nearby particles with delicate environmental thread lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -202,17 +191,14 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
         }
       }
 
-      // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 
         if (p.orbitRadius > 0) {
-          // Circular orbital motion
           p.orbitAngle += p.orbitSpeed;
           let targetX = p.originX + Math.cos(p.orbitAngle) * p.orbitRadius;
           let targetY = p.originY + Math.sin(p.orbitAngle) * p.orbitRadius;
 
-          // Gentle mouse interaction (smooth displacement)
           const mdx = targetX - mouse.x;
           const mdy = targetY - mouse.y;
           const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
@@ -227,7 +213,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
           p.x += (targetX - p.x) * 0.08;
           p.y += (targetY - p.y) * 0.08;
         } else {
-          // Ambient drifting particles
           p.x += p.vx;
           p.y += p.vy;
 
@@ -237,7 +222,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
           if (p.y > height) p.y = 0;
         }
 
-        // Draw particle node
         ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
@@ -245,7 +229,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
         ctx.globalAlpha = p.alpha;
         ctx.fill();
 
-        // Subtle halo on larger nodes
         if (p.radius >= 2.5) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius * 2.2, 0, Math.PI * 2);
@@ -276,16 +259,13 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
       ref={containerRef}
       className="relative min-h-[calc(100vh-4rem)] bg-[#F6F5EF] text-[#14221D] flex flex-col justify-between overflow-hidden"
     >
-      {/* Background Architectural Blueprint Grid */}
       <div className="absolute inset-0 bg-grid-stone pointer-events-none opacity-50" />
 
-      {/* Interactive Canvas Particle System */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none"
       />
 
-      {/* Subtle Orbital Stage Indicators (Desktop absolute overlay) */}
       <div className="hidden lg:block absolute right-16 top-1/2 -translate-y-1/2 w-80 pointer-events-none">
         <div className="space-y-3 font-mono text-[11px]">
           {LOOP_NODES.map((node, idx) => {
@@ -312,16 +292,13 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
         </div>
       </div>
 
-      {/* Hero Content Section */}
       <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-12 sm:pt-20 lg:pt-24 pb-12 flex-1 flex flex-col justify-center">
         <div className="max-w-2xl">
-          {/* Eyebrow */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm bg-[#E5EFE8] border border-[#D9DDD5] text-[#12372A] text-xs font-mono font-medium mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-[#238B57] animate-pulse" />
             <span>CIRCULAR ECONOMY / MATERIAL NETWORK</span>
           </div>
 
-          {/* Main Heading - Editorial Swiss style */}
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#12372A] leading-[1.05] mb-6">
             WASTE HAS <br />
             <span className="text-[#238B57] underline decoration-[#53B978]/40 decoration-4 underline-offset-8">
@@ -329,13 +306,11 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
             </span>
           </h1>
 
-          {/* Supporting Text */}
           <p className="text-base sm:text-lg text-[#32483E] leading-relaxed mb-8 max-w-xl">
             Connect waste with the right destination, track every material journey, and turn discarded
             resources into new value.
           </p>
 
-          {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 mb-10">
             <button
               type="button"
@@ -356,7 +331,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
             </button>
           </div>
 
-          {/* Mouse coordinate interaction indicator */}
           <div className="flex items-center gap-2 text-[11px] font-mono text-[#556960]">
             <Compass className="w-3.5 h-3.5 text-[#238B57]" />
             <span className="uppercase tracking-widest font-semibold text-[#12372A]">
@@ -369,7 +343,6 @@ export const AnimatedHero: React.FC<Props> = ({ onListWaste, onExploreJourney })
         </div>
       </div>
 
-      {/* Hero Micro Information Strip (Prompt Section 8) */}
       <div className="relative z-10 border-t border-[#D9DDD5] bg-[#FFFFFF]/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs">

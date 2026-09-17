@@ -47,7 +47,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
     );
   }
 
-  // Find latest lifecycle event for current blockchain hash
   const latestEvent = events[events.length - 1];
   const genesisEvent = events[0];
 
@@ -64,7 +63,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      {/* Top Controls Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white border border-slate-200 rounded-2xl p-4 shadow-xs print:hidden">
         <div className="flex items-center gap-2">
           <span className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
@@ -107,9 +105,7 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
         </div>
       </div>
 
-      {/* Main Official Certificate Card */}
       <div className="bg-white border-2 border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm print:border-none print:shadow-none print:p-0 space-y-6">
-        {/* Certificate Header Banner */}
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-6 border-b-2 border-slate-100">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-xs font-bold mb-2">
@@ -134,9 +130,7 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
           </div>
         </div>
 
-        {/* Two-Column Specification & QR Verification */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Left 2 Cols: Primary Attributes */}
           <div className="md:col-span-2 space-y-4">
             <div className="grid grid-cols-2 gap-4 text-xs bg-slate-50/70 rounded-2xl p-4 border border-slate-100">
               <div>
@@ -165,7 +159,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
               </div>
             </div>
 
-            {/* Custody Chain Entities */}
             <div className="space-y-2 text-xs border border-slate-100 rounded-2xl p-4">
               <div className="flex justify-between py-1.5 border-b border-slate-100">
                 <span className="text-slate-500 font-medium">Source Generator:</span>
@@ -193,7 +186,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
               </div>
             </div>
 
-            {/* Environmental Impact (Clearly marked Prototype Estimate) */}
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
@@ -234,7 +226,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
             </div>
           </div>
 
-          {/* Right Col: QR Code Card */}
           <div className="flex flex-col items-center justify-start">
             <QRCodeCard
               wasteId={listing.wasteId}
@@ -245,7 +236,6 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
           </div>
         </div>
 
-        {/* Cryptographic Ledger Audit Section */}
         <div className="pt-4 border-t-2 border-slate-100">
           <div className="flex items-center gap-2 mb-3">
             <Lock className="w-4 h-4 text-emerald-600" />

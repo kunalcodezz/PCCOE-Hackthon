@@ -28,13 +28,11 @@ interface Props {
 export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
-  // Form State
   const [imagePreview, setImagePreview] = useState<string>(SAMPLE_WASTE_IMAGES[0].url);
   const [selectedFileName, setSelectedFileName] = useState<string>('pet_plastic_bottles.jpg');
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [aiResult, setAiResult] = useState<AIAnalysisResult | null>(null);
 
-  // Detailed fields
   const [material, setMaterial] = useState<string>('PET Plastic Bottles (Polyethylene Terephthalate)');
   const [category, setCategory] = useState<WasteCategory>('Plastic');
   const [quantity, setQuantity] = useState<number>(500);
@@ -48,7 +46,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
   );
   const [expectedPrice, setExpectedPrice] = useState<number>(12500);
 
-  // Submission State
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [createdListing, setCreatedListing] = useState<WasteListing | null>(null);
 
@@ -63,7 +60,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
     'Other',
   ];
 
-  // Drag & drop handlers
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
@@ -94,7 +90,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
     setSelectedFileName(`${sample.category.toLowerCase()}_sample.jpg`);
   };
 
-  // Step 1 -> Step 2: Trigger AI
   const handleAnalyze = async () => {
     setIsAnalyzing(true);
     try {
@@ -111,7 +106,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
     }
   };
 
-  // Step 4: Final Submission
   const handleSubmitListing = async () => {
     setIsSubmitting(true);
     try {
@@ -126,7 +120,7 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         description,
         imageUrl: imagePreview,
         location,
-        coordinates: { lat: 18.629, lng: 73.842 }, // Pune geo coordinates
+        coordinates: { lat: 18.629, lng: 73.842 },
         preferredPickupDate: preferredDate,
         expectedPrice: expectedPrice > 0 ? expectedPrice : undefined,
         condition: aiResult?.condition || 'Recyclable segregation verified',
@@ -136,7 +130,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
 
       setCreatedListing(newListing);
 
-      // Trigger celebratory confetti
       confetti({
         particleCount: 80,
         spread: 70,
@@ -151,7 +144,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
     }
   };
 
-  // If successfully created, display Passport confirmation card
   if (createdListing) {
     return (
       <div className="max-w-2xl mx-auto py-8">
@@ -222,7 +214,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      {/* Header & Step Wizard */}
       <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
           <div>
@@ -236,7 +227,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
           </span>
         </div>
 
-        {/* Step Indicator Progress */}
         <div className="grid grid-cols-4 gap-2 text-center text-xs font-semibold">
           {[
             { s: 1, label: '1. Photo' },
@@ -260,7 +250,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
-      {/* STEP 1: Upload Waste Image */}
       {step === 1 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div>
@@ -270,7 +259,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
             </p>
           </div>
 
-          {/* Drag & Drop Area */}
           <div
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
@@ -308,7 +296,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
             )}
           </div>
 
-          {/* Quick Demo Preset Samples */}
           <div>
             <span className="text-xs font-bold text-slate-600 block mb-2">
               Or pick a sample material for instant hackathon evaluation:
@@ -332,7 +319,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
             </div>
           </div>
 
-          {/* Action Footer */}
           <div className="flex items-center justify-end pt-4 border-t border-slate-100">
             <button
               type="button"
@@ -357,7 +343,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       )}
 
-      {/* STEP 2: AI Classification Review */}
       {step === 2 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between">
@@ -371,7 +356,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
             <img src={imagePreview} alt="thumb" className="w-12 h-12 rounded-xl object-cover border" />
           </div>
 
-          {/* AI Result Card */}
           <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div>
@@ -406,7 +390,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               </p>
             </div>
 
-            {/* Editable Category Selection */}
             <div className="pt-2">
               <label className="text-xs font-bold text-slate-700 block mb-2">
                 Confirm or Adjust Category Stream:
@@ -429,7 +412,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               </div>
             </div>
 
-            {/* Scientific Guardrail Notice */}
             <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-800 flex items-start gap-2">
               <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
               <div>
@@ -461,7 +443,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       )}
 
-      {/* STEP 3: Waste Details Form */}
       {step === 3 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div>
@@ -472,7 +453,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
           </div>
 
           <div className="space-y-4 text-xs">
-            {/* Material Name */}
             <div>
               <label className="font-semibold text-slate-700 block mb-1">Material Name / Grade</label>
               <input
@@ -484,7 +464,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               />
             </div>
 
-            {/* Quantity & Unit */}
             <div className="grid grid-cols-3 gap-3">
               <div className="col-span-2">
                 <label className="font-semibold text-slate-700 block mb-1">
@@ -515,7 +494,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               </div>
             </div>
 
-            {/* Location & Preferred Date */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="font-semibold text-slate-700 block mb-1">
@@ -547,7 +525,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               </div>
             </div>
 
-            {/* Expected Price */}
             <div>
               <label className="font-semibold text-slate-700 block mb-1">
                 Expected Price (Optional INR ₹)
@@ -567,7 +544,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
               </span>
             </div>
 
-            {/* Description */}
             <div>
               <label className="font-semibold text-slate-700 block mb-1">Handling Description</label>
               <textarea
@@ -601,7 +577,6 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       )}
 
-      {/* STEP 4: Review & Final Submission */}
       {step === 4 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div>

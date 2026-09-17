@@ -1,9 +1,3 @@
-/**
- * ESG / CSR Report Generation Service
- *
- * Formats verifiable environmental impact summaries and triggers a print/PDF view
- * for commercial stakeholders, municipal auditors, and sustainability reporting.
- */
 
 import { WasteListing, WasteLifecycleEvent } from '../types';
 

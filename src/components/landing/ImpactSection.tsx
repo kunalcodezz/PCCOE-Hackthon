@@ -5,7 +5,6 @@ export const ImpactSection: React.FC = () => {
   return (
     <section id="impact" className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#D9DDD5] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-[#D9DDD5] gap-6">
           <div>
             <div className="text-xs font-mono uppercase tracking-widest text-[#238B57] font-semibold mb-2">
@@ -26,9 +25,7 @@ export const ImpactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Editorial Typography Grid - NOT generic cards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-          {/* Huge Dominant Editorial Stat */}
           <div className="lg:col-span-6 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#D9DDD5] pb-8 lg:pb-0 lg:pr-10">
             <div>
               <div className="text-xs font-mono uppercase tracking-wider text-[#7D9187] mb-2">
@@ -46,7 +43,6 @@ export const ImpactSection: React.FC = () => {
               </p>
             </div>
 
-            {/* Material Flow Bar Breakdown */}
             <div className="mt-8 pt-6 border-t border-[#D9DDD5] font-mono text-xs">
               <div className="text-[11px] text-[#7D9187] uppercase mb-2">
                 VERIFIED MATERIAL COMPOSITION BREAKDOWN
@@ -66,7 +62,6 @@ export const ImpactSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Secondary Editorial Stats */}
           <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 font-mono">
               <div className="border-b sm:border-b-0 sm:border-r border-[#D9DDD5] pb-6 sm:pb-0 sm:pr-6">

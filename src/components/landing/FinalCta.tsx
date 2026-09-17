@@ -9,13 +9,11 @@ interface Props {
 export const FinalCta: React.FC<Props> = ({ onListWaste, onJoinNetwork }) => {
   return (
     <section className="py-24 sm:py-36 bg-[#12372A] text-[#F6F5EF] relative overflow-hidden border-b border-[#32483E]">
-      {/* Subtle Green Circular Linework (SVG Architectural Circles, Not Giant Gradients) */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-25">
         <svg viewBox="0 0 1000 1000" className="w-[800px] sm:w-[1200px] h-auto" xmlns="http://www.w3.org/2000/svg">
           <circle cx="500" cy="500" r="180" fill="none" stroke="#53B978" strokeWidth="1" strokeDasharray="6 8" />
           <circle cx="500" cy="500" r="320" fill="none" stroke="#238B57" strokeWidth="1.5" strokeDasharray="4 12" />
           <circle cx="500" cy="500" r="460" fill="none" stroke="#A8C5B2" strokeWidth="0.75" strokeDasharray="2 16" />
-          {/* Subtle crosshairs */}
           <line x1="500" y1="20" x2="500" y2="980" stroke="#238B57" strokeWidth="0.5" strokeDasharray="4 8" />
           <line x1="20" y1="500" x2="980" y2="500" stroke="#238B57" strokeWidth="0.5" strokeDasharray="4 8" />
         </svg>

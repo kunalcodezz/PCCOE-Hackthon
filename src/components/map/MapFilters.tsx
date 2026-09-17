@@ -40,7 +40,6 @@ export const MapFilters: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex flex-col gap-4">
-      {/* Category Filters */}
       <div className="bg-white rounded-xl border border-[#D9DDD5] p-3 shadow-xs">
         <div className="text-[10px] font-bold font-mono text-[#7D9187] uppercase tracking-wider mb-2.5 px-1">
           Categories
@@ -67,7 +66,6 @@ export const MapFilters: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Waste Type Filters */}
       <div className="bg-white rounded-xl border border-[#D9DDD5] p-3 shadow-xs">
         <div className="text-[10px] font-bold font-mono text-[#7D9187] uppercase tracking-wider mb-2.5 px-1">
           Waste Type
@@ -104,7 +102,6 @@ export const MapFilters: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Use My Location */}
       <button
         type="button"
         onClick={onUseMyLocation}

@@ -68,7 +68,6 @@ export function BottomNavBar({
   items,
   userRole,
 }: BottomNavBarProps) {
-  // Determine appropriate nav items based on role or explicit props
   const navItems = items || (
     userRole === "recycler"
       ? RECYCLER_NAV_ITEMS
@@ -79,7 +78,6 @@ export function BottomNavBar({
 
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
 
-  // Synchronize active tab with the current application route
   useEffect(() => {
     if (!currentRoute) return;
 
