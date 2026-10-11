@@ -15,6 +15,7 @@ import {
   Leaf,
   Recycle,
   Building2,
+  XCircle,
 } from 'lucide-react';
 
 interface Props {
@@ -43,7 +44,11 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
     setIsVerifying(true);
     await new Promise((r) => setTimeout(r, 400));
     const result = await verifyWasteLifecycle(events);
-    setVerificationResult(result);
+    setVerificationResult({
+      valid: result.isValid,
+      brokenIndex: result.brokenIndex,
+      error: result.message,
+    });
     setIsVerifying(false);
   };
 
@@ -76,7 +81,7 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
         <div className="text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-3">
             <Recycle className="w-4 h-4 text-emerald-600" />
-            <span>CircuTrace Public Ledger Audit Portal</span>
+            <span>RE:LOOP Public Audit Ledger</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
             Digital Waste Passport Verification
@@ -86,16 +91,31 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
           </p>
         </div>
 
-        <div className="bg-white border-2 border-emerald-500 rounded-3xl p-6 shadow-sm">
+        <div className={`bg-white border-2 rounded-3xl p-6 shadow-sm transition ${
+          verificationResult?.valid === false ? 'border-amber-400' : 'border-emerald-500'
+        }`}>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                <ShieldCheck className="w-7 h-7" />
+              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${
+                verificationResult?.valid === false
+                  ? 'bg-amber-50 text-amber-600'
+                  : 'bg-emerald-50 text-emerald-600'
+              }`}>
+                {verificationResult?.valid === false ? (
+                  <AlertTriangle className="w-7 h-7" />
+                ) : (
+                  <ShieldCheck className="w-7 h-7" />
+                )}
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h2 className="text-lg font-bold text-slate-900">
-                    Blockchain Chain: {verificationResult?.valid ? '100% Verified' : 'Checking...'}
+                    Blockchain Status:{' '}
+                    {isVerifying
+                      ? 'Verifying...'
+                      : verificationResult?.valid
+                      ? '100% Verified'
+                      : 'Audit Review Required'}
                   </h2>
                   <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                     SHA-256 Merkle Chain
@@ -116,31 +136,75 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             </button>
           </div>
 
+          {/* Dynamic Verification Indicators */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 text-xs">
             <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold text-slate-800 block">Record Exists</span>
-                <span className="text-slate-500 text-[11px]">Found in active ledger</span>
+                <span className="text-slate-500 text-[11px]">Found in active registry</span>
               </div>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              {isVerifying ? (
+                <RefreshCw className="w-4 h-4 text-slate-400 shrink-0 mt-0.5 animate-spin" />
+              ) : verificationResult?.valid ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              ) : (
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              )}
               <div>
-                <span className="font-bold text-slate-800 block">Hashes Match</span>
-                <span className="text-slate-500 text-[11px]">Payloads uncorrupted</span>
+                <span className="font-bold text-slate-800 block">
+                  {isVerifying
+                    ? 'Checking Hashes'
+                    : verificationResult?.valid
+                    ? 'Hashes Match'
+                    : 'Hash Review'}
+                </span>
+                <span className="text-slate-500 text-[11px]">
+                  {isVerifying
+                    ? 'Computing SHA-256'
+                    : verificationResult?.valid
+                    ? 'Payloads authentic'
+                    : 'Check event integrity'}
+                </span>
               </div>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-3 border border-slate-100 flex items-start gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              {isVerifying ? (
+                <RefreshCw className="w-4 h-4 text-slate-400 shrink-0 mt-0.5 animate-spin" />
+              ) : verificationResult?.valid ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              ) : (
+                <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              )}
               <div>
-                <span className="font-bold text-slate-800 block">Chain Unbroken</span>
-                <span className="text-slate-500 text-[11px]">Linked backwards to genesis</span>
+                <span className="font-bold text-slate-800 block">
+                  {isVerifying
+                    ? 'Auditing Links'
+                    : verificationResult?.valid
+                    ? 'Chain Unbroken'
+                    : 'Chain Notice'}
+                </span>
+                <span className="text-slate-500 text-[11px]">
+                  {isVerifying
+                    ? 'Traversing blocks'
+                    : verificationResult?.valid
+                    ? `${events.length}/${events.length} blocks linked`
+                    : 'Genesis linkage issue'}
+                </span>
               </div>
             </div>
           </div>
+
+          {verificationResult?.error && !verificationResult.valid && (
+            <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+              <span>{verificationResult.error}</span>
+            </div>
+          )}
         </div>
 
         <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-xs space-y-6">
@@ -165,6 +229,7 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             />
           </div>
 
+          {/* Genuine Dynamic Metadata */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-50 rounded-2xl p-4 border border-slate-100">
             <div>
               <span className="text-slate-400 block font-medium">Waste Origin:</span>
@@ -175,7 +240,7 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             <div>
               <span className="text-slate-400 block font-medium">Certified Recycler:</span>
               <span className="font-semibold text-slate-900 mt-0.5 block">
-                {listing.recyclerName || 'Verified Recycling Facility'}
+                {listing.recyclerName || 'Pending Recycler Assignment'}
               </span>
             </div>
             <div>
@@ -187,7 +252,10 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
             <div>
               <span className="text-slate-400 block font-medium">Closed-Loop Destination:</span>
               <span className="font-semibold text-emerald-800 mt-0.5 block">
-                Recycled Raw Material / rPET Yarn
+                {listing.suggestedProcessing ||
+                  (listing.status === 'RECYCLED' || listing.status === 'REUSED'
+                    ? `Reprocessed ${listing.material}`
+                    : 'Circular Repurposing')}
               </span>
             </div>
           </div>
@@ -231,9 +299,10 @@ export const VerifyWaste: React.FC<Props> = ({ wasteId, navigate }) => {
         </div>
 
         <div className="text-center text-xs text-slate-400 pt-4">
-          Verified on CircuTrace Open Registry • Prototype cryptographic ledger implementation
+          Verified on RE:LOOP Open Registry • Real-Time Cryptographic Verification
         </div>
       </div>
     </div>
   );
 };
+

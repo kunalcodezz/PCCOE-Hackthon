@@ -13,7 +13,6 @@ import { WastePassport } from './pages/WastePassport';
 import { VerifyWaste } from './pages/VerifyWaste';
 import { RecyclerMarketplace } from './pages/RecyclerMarketplace';
 import { RecyclerProcessing } from './pages/RecyclerProcessing';
-import { AdminDashboard } from './pages/AdminDashboard';
 import { HowItWorks } from './pages/HowItWorks';
 import { MapPage } from './pages/MapPage';
 import { BottomNavBar } from './components/ui/bottom-nav-bar';
@@ -95,8 +94,6 @@ export function App() {
         return <RecyclerMarketplace currentUser={currentUser} navigate={navigate} />;
       case '/recycler/processing':
         return <RecyclerProcessing currentUser={currentUser} navigate={navigate} />;
-      case '/admin/dashboard':
-        return <AdminDashboard currentUser={currentUser} navigate={navigate} />;
       case '/map':
         return <MapPage navigate={navigate} />;
       default:

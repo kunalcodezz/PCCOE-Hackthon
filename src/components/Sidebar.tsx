@@ -8,7 +8,6 @@ import {
   Search,
   QrCode,
   Factory,
-  ShieldAlert,
   Repeat,
   MapPin,
 } from 'lucide-react';
@@ -33,10 +32,6 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
   const recyclerItems = [
     { label: 'Marketplace', route: '/recycler/marketplace', icon: <Repeat className="w-4 h-4" /> },
     { label: 'Processing Queue', route: '/recycler/processing', icon: <Factory className="w-4 h-4" /> },
-  ];
-
-  const adminItems = [
-    { label: 'Admin & Fraud Radar', route: '/admin/dashboard', icon: <ShieldAlert className="w-4 h-4" /> },
   ];
 
   return (
@@ -68,7 +63,7 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
           </nav>
         </div>
 
-        {(userRole === 'recycler' || userRole === 'admin') && (
+        {userRole === 'recycler' && (
           <div>
             <div className="px-3 text-[11px] font-semibold text-purple-700 uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>Recycler Hub</span>
@@ -91,37 +86,6 @@ export const Sidebar: React.FC<Props> = ({ currentRoute, navigate, userRole }) =
                     }`}
                   >
                     <span className={active ? 'text-purple-600' : 'text-slate-400'}>{item.icon}</span>
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </nav>
-          </div>
-        )}
-
-        {userRole === 'admin' && (
-          <div>
-            <div className="px-3 text-[11px] font-semibold text-amber-700 uppercase tracking-wider mb-2 flex items-center justify-between">
-              <span>Governance</span>
-              <span className="text-[10px] bg-amber-50 border border-amber-200 text-amber-700 px-1.5 py-0.2 rounded">
-                ADMIN
-              </span>
-            </div>
-            <nav className="space-y-1">
-              {adminItems.map((item) => {
-                const active = currentRoute === item.route;
-                return (
-                  <button
-                    key={item.route}
-                    type="button"
-                    onClick={() => navigate(item.route)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-medium transition cursor-pointer text-left ${
-                      active
-                        ? 'bg-amber-50 text-amber-800 font-semibold border border-amber-200'
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                    }`}
-                  >
-                    <span className={active ? 'text-amber-600' : 'text-slate-400'}>{item.icon}</span>
                     <span>{item.label}</span>
                   </button>
                 );

@@ -45,7 +45,7 @@ export const TraceabilityTimeline: React.FC<Props> = ({
         </div>
         <div className="flex items-center gap-2">
           <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-white/20 text-white/80 uppercase">
-            Prototype Demo
+            Verified Ledger
           </span>
           <button
             type="button"

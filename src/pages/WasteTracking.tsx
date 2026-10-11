@@ -83,8 +83,6 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
       const actorRole =
         currentUser.role === 'recycler'
           ? 'Authorized Recycler Facility'
-          : currentUser.role === 'admin'
-          ? 'Regulatory Compliance Auditor'
           : 'Logistics Custodian';
 
       const descMap: Record<WasteLifecycleStatus, string> = {

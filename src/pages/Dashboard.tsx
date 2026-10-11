@@ -41,7 +41,7 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
   const stats = wasteStore.getPlatformStats();
 
   const userListings = listings.filter(
-    (l) => l.ownerId === currentUser.uid || currentUser.role === 'admin'
+    (l) => l.ownerId === currentUser.uid
   );
   const displayListings = userListings.length > 0 ? userListings : listings;
 
@@ -134,7 +134,7 @@ export const Dashboard: React.FC<Props> = ({ currentUser, navigate }) => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-bold text-slate-900 text-sm">Monthly Recycling &amp; Diversion Trends</h3>
-              <p className="text-xs text-slate-500">KG recovery over previous 5 months (Sample prototype data)</p>
+              <p className="text-xs text-slate-500">KG recovery over previous 5 months</p>
             </div>
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1 text-slate-600">

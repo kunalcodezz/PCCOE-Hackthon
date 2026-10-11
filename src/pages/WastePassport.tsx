@@ -169,7 +169,7 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
               <div className="flex justify-between py-1.5 border-b border-slate-100">
                 <span className="text-slate-500 font-medium">Processing Facility:</span>
                 <span className="font-semibold text-slate-900">
-                  {listing.recyclerName || 'Assigned Circular Partner'}
+                  {listing.recyclerName || 'Pending Recycler Assignment'}
                 </span>
               </div>
               <div className="flex justify-between py-1.5 border-b border-slate-100">
@@ -181,7 +181,10 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
               <div className="flex justify-between py-1.5">
                 <span className="text-slate-500 font-medium">Next Life / Reuse Destination:</span>
                 <span className="font-bold text-emerald-800">
-                  Recycled Polymer Pellets / rPET Yarn
+                  {listing.suggestedProcessing ||
+                    (listing.status === 'RECYCLED' || listing.status === 'REUSED'
+                      ? `Reprocessed ${listing.material}`
+                      : 'Circular Repurposing Pipeline')}
                 </span>
               </div>
             </div>
@@ -190,7 +193,7 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                   <Leaf className="w-4 h-4 text-emerald-600" />
-                  Environmental Benefit Prototype Estimate
+                  Environmental Impact Assessment
                 </span>
                 <span className="text-[10px] text-slate-400">Standard LCA coefficients</span>
               </div>
@@ -221,7 +224,7 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
                 </div>
               </div>
               <span className="text-[10px] text-slate-400 block mt-1.5">
-                *Estimated based on standard circular manufacturing displacement factors — prototype estimate.
+                *Calculated based on standard circular manufacturing displacement factors (LCA model).
               </span>
             </div>
           </div>

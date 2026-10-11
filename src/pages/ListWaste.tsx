@@ -252,7 +252,7 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
 
       {step === 1 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
-          <div>
+          <div className="pb-4 border-b border-slate-100">
             <h3 className="text-base font-bold text-slate-900">Step 1: Upload Waste Image</h3>
             <p className="text-xs text-slate-500">
               Drag-and-drop a photo or choose a preset sample material for demo

@@ -6,6 +6,7 @@ interface Props {
   wasteId: string;
   material: string;
   status: string;
+  showDownload?: boolean;
 }
 
 export const QRCodeCard: React.FC<Props> = ({ wasteId, material, status }) => {

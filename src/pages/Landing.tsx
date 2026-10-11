@@ -3,7 +3,7 @@ import { AnimatedHero } from '../components/landing/AnimatedHero';
 
 interface Props {
   navigate: (route: string) => void;
-  onTryDemo: (role: 'business' | 'recycler' | 'citizen' | 'admin') => void;
+  onTryDemo: (role: 'business' | 'recycler') => void;
 }
 
 export const Landing: React.FC<Props> = ({ navigate }) => {

@@ -41,7 +41,7 @@ export const Navbar: React.FC<Props> = ({
     admin: { label: 'Admin', icon: <Shield className="w-3 h-3" /> },
   };
 
-  const currentRoleInfo = roleLabels[currentUser.role] || roleLabels.citizen;
+  const currentRoleInfo = roleLabels[currentUser.role] || roleLabels.business;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -155,7 +155,7 @@ export const Navbar: React.FC<Props> = ({
                   <div className="px-3 py-1 text-[10px] font-bold text-[#7D9187] uppercase tracking-wider border-b border-[#D9DDD5] mb-1">
                     Select Persona Demo
                   </div>
-                  {(['business', 'recycler', 'citizen', 'admin'] as UserRole[]).map((r) => (
+                  {(['business', 'recycler'] as UserRole[]).map((r) => (
                     <button
                       key={r}
                       type="button"

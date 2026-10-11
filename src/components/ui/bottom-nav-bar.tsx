@@ -9,7 +9,6 @@ import {
   Search,
   Package,
   Factory,
-  ShieldAlert,
   QrCode,
   MapPin,
   type LucideIcon,
@@ -39,14 +38,6 @@ const RECYCLER_NAV_ITEMS: NavItem[] = [
   { label: "Passport", icon: QrCode, route: "/passport/WST-PUN-00124" },
 ];
 
-const ADMIN_NAV_ITEMS: NavItem[] = [
-  { label: "Home", icon: Home, route: "/dashboard" },
-  { label: "Radar", icon: ShieldAlert, route: "/admin/dashboard" },
-  { label: "Listings", icon: Package, route: "/my-listings" },
-  { label: "Track", icon: Search, route: "/track/WST-PUN-00124" },
-  { label: "Passport", icon: QrCode, route: "/passport/WST-PUN-00124" },
-];
-
 const MOBILE_LABEL_WIDTH = 72;
 
 export type BottomNavBarProps = {
@@ -71,8 +62,6 @@ export function BottomNavBar({
   const navItems = items || (
     userRole === "recycler"
       ? RECYCLER_NAV_ITEMS
-      : userRole === "admin"
-      ? ADMIN_NAV_ITEMS
       : DEFAULT_NAV_ITEMS
   );
 
