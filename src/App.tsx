@@ -45,11 +45,9 @@ export function App() {
   };
 
   const handleResetDemo = () => {
-    if (window.confirm('Reset all demo listings, batches, and transactions back to initial state?')) {
-      wasteStore.resetToInitialSeed();
-      handleSelectRole(currentRole);
-      navigate('/');
-    }
+    wasteStore.resetToInitialSeed();
+    handleSelectRole(currentRole);
+    navigate('/');
   };
 
   const renderRouteContent = () => {

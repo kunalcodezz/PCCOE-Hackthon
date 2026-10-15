@@ -84,15 +84,14 @@ export const WastePassport: React.FC<Props> = ({ wasteId, currentUser, navigate 
             <span>{copied ? 'Link Copied! ✓' : 'Share URL'}</span>
           </button>
 
-          <a
-            href={`/verify/${listing.wasteId}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+          <button
+            type="button"
+            onClick={() => navigate(`/verify/${listing.wasteId}`)}
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition cursor-pointer"
           >
             <span>Public Verification</span>
             <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          </button>
 
           <button
             type="button"

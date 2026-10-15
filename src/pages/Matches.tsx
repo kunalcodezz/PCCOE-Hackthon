@@ -54,6 +54,7 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
 
   const [requestingRecyclerId, setRequestingRecyclerId] = useState<string | null>(null);
   const [requestSuccess, setRequestSuccess] = useState<string | null>(null);
+  const [requestError, setRequestError] = useState<string | null>(null);
 
   const currentListing = useMemo(() => {
     return listings.find((l) => l.wasteId === selectedListingId) || listings[0];
@@ -112,6 +113,7 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
   const handleRequestPickup = async (matchItem: MatchScoreResult) => {
     if (!currentListing) return;
     setRequestingRecyclerId(matchItem.recycler.recyclerId);
+    setRequestError(null);
     try {
       await wasteStore.requestPickup(currentListing.wasteId, matchItem.recycler);
       setRefreshCounter((prev) => prev + 1);
@@ -121,7 +123,8 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
       setTimeout(() => setRequestSuccess(null), 8000);
     } catch (err) {
       console.error(err);
-      alert('Unable to assign recycler. Please try again.');
+      setRequestError('Unable to assign recycler. Please try again.');
+      setTimeout(() => setRequestError(null), 6000);
     } finally {
       setRequestingRecyclerId(null);
     }
@@ -300,6 +303,20 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
           </div>
         </div>
       </div>
+
+      {requestSuccess && (
+        <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center gap-2 animate-in fade-in">
+          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span className="font-semibold">{requestSuccess}</span>
+        </div>
+      )}
+
+      {requestError && (
+        <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs text-red-900 flex items-center gap-2 animate-in fade-in">
+          <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+          <span className="font-semibold">{requestError}</span>
+        </div>
+      )}
 
       {/* Matching Filters & Sorting Toolbar */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-xs space-y-3">

@@ -33,6 +33,8 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
   const [isAdvancing, setIsAdvancing] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   if (!listing) {
     return (
       <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center max-w-lg mx-auto">
@@ -121,7 +123,8 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
       setTimeout(() => setSuccessMessage(null), 5000);
     } catch (err) {
       console.error(err);
-      alert('Unable to advance lifecycle status. Check connection and retry.');
+      setErrorMessage('Unable to advance lifecycle status. Check connection and retry.');
+      setTimeout(() => setErrorMessage(null), 5000);
     } finally {
       setIsAdvancing(false);
     }
@@ -156,17 +159,23 @@ export const WasteTracking: React.FC<Props> = ({ wasteId, currentUser, navigate 
             <span>Digital Passport &amp; QR</span>
           </button>
 
-          <a
-            href={`/verify/${listing.wasteId}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition"
+          <button
+            type="button"
+            onClick={() => navigate(`/verify/${listing.wasteId}`)}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition cursor-pointer"
           >
             <span>Public Verify</span>
             <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          </button>
         </div>
       </div>
+
+      {errorMessage && (
+        <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs text-red-900 flex items-center gap-2 animate-in fade-in">
+          <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+          <span className="font-medium">{errorMessage}</span>
+        </div>
+      )}
 
       {successMessage && (
         <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center gap-2 animate-in fade-in">

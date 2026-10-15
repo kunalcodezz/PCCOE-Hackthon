@@ -137,6 +137,7 @@ export interface AIAnalysisResult {
   suggestedProcessing: string;
   estimatedDensityKgPerM3?: number;
   notes: string;
+  isFallback?: boolean;
 }
 
 export interface MatchScoreResult {

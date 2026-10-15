@@ -23,6 +23,7 @@ export const RecyclerProcessing: React.FC<Props> = ({ currentUser, navigate }) =
   const listings = wasteStore.getListings();
   const [processingId, setProcessingId] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const activeBatches = listings.filter((l) =>
     ['MATCHED', 'COLLECTED', 'TRANSPORTED', 'RECEIVED', 'PROCESSED', 'RECYCLED'].includes(l.status)
@@ -71,7 +72,8 @@ export const RecyclerProcessing: React.FC<Props> = ({ currentUser, navigate }) =
       setTimeout(() => setStatusMessage(null), 5000);
     } catch (err) {
       console.error(err);
-      alert('Unable to advance stage. Please retry.');
+      setErrorMessage('Unable to advance stage. Please retry.');
+      setTimeout(() => setErrorMessage(null), 5000);
     } finally {
       setProcessingId(null);
     }
@@ -107,6 +109,12 @@ export const RecyclerProcessing: React.FC<Props> = ({ currentUser, navigate }) =
         <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span className="font-semibold">{statusMessage}</span>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs text-red-900 flex items-center gap-2 animate-in fade-in">
+          <span className="font-semibold">{errorMessage}</span>
         </div>
       )}
 

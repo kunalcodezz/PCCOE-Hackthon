@@ -25,6 +25,7 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
 
   const [categoryFilter, setCategoryFilter] = useState<string>('ALL');
   const [acceptedSuccess, setAcceptedSuccess] = useState<string | null>(null);
+  const [acceptedError, setAcceptedError] = useState<string | null>(null);
 
   const openListings = listings.filter((l) => {
     const matchesCategory = categoryFilter === 'ALL' || l.category === categoryFilter;
@@ -38,7 +39,8 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
       setTimeout(() => setAcceptedSuccess(null), 5000);
     } catch (err) {
       console.error(err);
-      alert('Unable to accept batch. Please retry.');
+      setAcceptedError('Unable to accept batch. Please retry.');
+      setTimeout(() => setAcceptedError(null), 5000);
     }
   };
 
@@ -75,6 +77,12 @@ export const RecyclerMarketplace: React.FC<Props> = ({ currentUser, navigate }) 
         <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-900 flex items-center gap-2">
           <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           <span className="font-semibold">{acceptedSuccess}</span>
+        </div>
+      )}
+
+      {acceptedError && (
+        <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs text-red-900 flex items-center gap-2">
+          <span className="font-semibold">{acceptedError}</span>
         </div>
       )}
 

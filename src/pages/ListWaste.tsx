@@ -48,6 +48,7 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
 
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [createdListing, setCreatedListing] = useState<WasteListing | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const CATEGORIES: WasteCategory[] = [
     'Plastic',
@@ -99,7 +100,8 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
       setCategory(result.category);
       setStep(2);
     } catch {
-      alert('AI analysis failed. You can still input details manually.');
+      setErrorMessage('AI analysis encountered an issue. You can still input details manually.');
+      setTimeout(() => setErrorMessage(null), 6000);
       setStep(2);
     } finally {
       setIsAnalyzing(false);
@@ -108,6 +110,7 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
 
   const handleSubmitListing = async () => {
     setIsSubmitting(true);
+    setErrorMessage(null);
     try {
       const newListing = await wasteStore.createListing({
         ownerId: currentUser.uid,
@@ -138,7 +141,8 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
       });
     } catch (err) {
       console.error(err);
-      alert('Unable to save listing. Please check connection and try again.');
+      setErrorMessage('Unable to save listing. Please check connection and try again.');
+      setTimeout(() => setErrorMessage(null), 6000);
     } finally {
       setIsSubmitting(false);
     }
@@ -250,6 +254,13 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         </div>
       </div>
 
+      {errorMessage && (
+        <div className="p-4 bg-red-50 border border-red-300 rounded-2xl text-xs text-red-900 flex items-center gap-2 animate-in fade-in">
+          <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+          <span className="font-medium">{errorMessage}</span>
+        </div>
+      )}
+
       {step === 1 && (
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div className="pb-4 border-b border-slate-100">
@@ -347,10 +358,17 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                AI Detection Complete ✓
-              </div>
+              {aiResult?.isFallback ? (
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full mb-1">
+                  <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
+                  Local Heuristic Match (Fallback Mode)
+                </div>
+              ) : (
+                <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full mb-1">
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                  Gemini Vision AI Verified ✓
+                </div>
+              )}
               <h3 className="text-base font-bold text-slate-900">Step 2: AI Material Classification</h3>
             </div>
             <img src={imagePreview} alt="thumb" className="w-12 h-12 rounded-xl object-cover border" />
@@ -363,9 +381,9 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
                 <span className="text-sm font-bold text-slate-900">{material}</span>
               </div>
               <div>
-                <span className="text-slate-400 block font-medium">AI Confidence Index</span>
-                <span className="text-sm font-bold text-emerald-700">
-                  {aiResult?.confidence || 96.4}% Verified
+                <span className="text-slate-400 block font-medium">Confidence Rating</span>
+                <span className={`text-sm font-bold ${aiResult?.isFallback ? 'text-amber-700' : 'text-emerald-700'}`}>
+                  {aiResult?.confidence || 96.4}% {aiResult?.isFallback ? '(Heuristic Est.)' : 'AI Verified'}
                 </span>
               </div>
               <div>
@@ -389,6 +407,17 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
                   'Optical sorting, flaking, decontamination, and pelletizing into rPET.'}
               </p>
             </div>
+
+            {aiResult?.notes && (
+              <div className="pt-2 text-xs">
+                <span className="text-slate-400 block font-medium mb-1">AI Inspection Notes</span>
+                <p className={`p-2.5 rounded-xl border whitespace-pre-line ${
+                  aiResult.isFallback ? 'bg-amber-50/70 border-amber-200 text-amber-900' : 'bg-emerald-50/50 border-emerald-200 text-emerald-900'
+                }`}>
+                  {aiResult.notes}
+                </p>
+              </div>
+            )}
 
             <div className="pt-2">
               <label className="text-xs font-bold text-slate-700 block mb-2">
