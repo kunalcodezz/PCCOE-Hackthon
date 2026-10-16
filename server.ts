@@ -11,7 +11,8 @@ const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+  // AI Studio and local dev preview require port 3000
+  const port = 3000;
 
   // Support up to 15MB payloads for base64 image uploads
   app.use(express.json({ limit: '15mb' }));

@@ -138,12 +138,21 @@ export default async function handler(req: any, res: any) {
       });
     }
 
-    // Verify Server-Side Gemini API Key
-    const apiKey = (process.env.GEMINI_API_KEY || '').trim();
+    // Verify Server-Side Gemini API Key from standard env vars or header fallback
+    const apiKey = (
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
+      process.env.GOOGLE_GENAI_API_KEY ||
+      process.env.VITE_GEMINI_API_KEY ||
+      (req.headers['x-gemini-api-key'] as string) ||
+      (body as any).apiKey ||
+      ''
+    ).trim();
+
     if (!apiKey) {
       console.warn('[RE:LOOP API] GEMINI_API_KEY is not configured in server environment.');
       return res.status(503).json({
-        error: 'Gemini AI service is not configured. GEMINI_API_KEY is missing from server environment.',
+        error: 'Gemini AI service is not configured. Add GEMINI_API_KEY to your Vercel Project Settings > Environment Variables, or provide it in .env.',
         code: 'MISSING_GEMINI_API_KEY',
         configured: false,
       });
@@ -212,7 +221,7 @@ Return a JSON object conforming to this schema:
     };
 
     let responseText = '';
-    const modelsToTry = ['gemini-2.5-flash', 'gemini-3.8-flash'];
+    const modelsToTry = ['gemini-2.5-flash', 'gemini-3.8-flash', 'gemini-flash-latest'];
     let lastError: unknown = null;
 
     for (const model of modelsToTry) {

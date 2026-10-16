@@ -70,15 +70,30 @@ export const SAMPLE_WASTE_IMAGES = [
 ];
 
 /**
- * Legacy API Key helpers maintained for compatibility.
- * In production, the Gemini API key is managed securely server-side via process.env.GEMINI_API_KEY.
+ * API Key helpers maintained for compatibility.
+ * Checks localStorage and import.meta.env, allowing optional client-provided key
+ * forwarded securely to the /api/analyze-waste server endpoint if server env is unconfigured.
  */
 export function getGeminiApiKey(): string {
-  return '';
+  const metaEnv = (import.meta as unknown as { env: Record<string, string | undefined> }).env || {};
+  return (
+    localStorage.getItem('VITE_GEMINI_API_KEY') ||
+    localStorage.getItem('GEMINI_API_KEY') ||
+    metaEnv.VITE_GEMINI_API_KEY ||
+    metaEnv.GEMINI_API_KEY ||
+    ''
+  ).trim();
 }
 
-export function setGeminiApiKey(_key: string): void {
-  // Deprecated: API key is handled securely on the server.
+export function setGeminiApiKey(key: string): void {
+  const trimmed = key.trim();
+  if (trimmed) {
+    localStorage.setItem('GEMINI_API_KEY', trimmed);
+    localStorage.setItem('VITE_GEMINI_API_KEY', trimmed);
+  } else {
+    localStorage.removeItem('GEMINI_API_KEY');
+    localStorage.removeItem('VITE_GEMINI_API_KEY');
+  }
 }
 
 /**
@@ -135,16 +150,23 @@ export async function analyzeWasteImage(
 
   try {
     const { base64, mimeType } = await prepareImagePayload(imageDataOrUrl);
+    const clientKey = getGeminiApiKey();
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (clientKey) {
+      headers['x-gemini-api-key'] = clientKey;
+    }
 
     const response = await fetch('/api/analyze-waste', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         image: base64,
         mimeType,
         fileName,
+        ...(clientKey ? { apiKey: clientKey } : {}),
       }),
     });
 
