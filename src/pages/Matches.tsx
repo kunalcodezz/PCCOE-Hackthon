@@ -466,6 +466,8 @@ export const Matches: React.FC<Props> = ({ currentUser, navigate }) => {
                 isSelected={currentListing.recyclerId === item.recycler.recyclerId}
                 isRequesting={requestingRecyclerId === item.recycler.recyclerId}
                 activeCategory={currentListing.category}
+                batchQuantity={currentListing.quantity}
+                batchUnit={currentListing.unit}
                 onSelect={() => {}}
                 onRequestPickup={() => handleRequestPickup(item)}
               />

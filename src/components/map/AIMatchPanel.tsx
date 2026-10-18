@@ -85,69 +85,55 @@ export const AIMatchPanel: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className="divide-y divide-[#D9DDD5]">
+      <div className="p-3 space-y-3 bg-slate-50/50">
         {matches.map((match, i) => {
-          const materialMatches = match.recycler.materialsAccepted.some(
-            (m) => m.toLowerCase() === selectedWaste.wasteType.toLowerCase()
-          );
-
           return (
-            <div key={match.recycler.id} className="px-4 py-3 hover:bg-[#F6F5EF]/60 transition">
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <span className={`w-5 h-5 rounded-full text-[10px] font-bold flex items-center justify-center ${
-                    i === 0
-                      ? 'bg-[#238B57] text-white'
-                      : 'bg-[#E5EFE8] text-[#12372A]'
-                  }`}>
-                    {i + 1}
+            <div key={match.recycler.id} className="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs">
+              <div className="mb-2">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-[#E5EFE8] text-[#235841]">
+                  Match #{i + 1} · {match.recycler.verified ? 'Verified facility' : 'Demo facility'}
+                </span>
+              </div>
+
+              <div className="divide-y divide-slate-100 border-t border-slate-100 text-xs">
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-slate-600">Company Name</span>
+                  <span className="font-bold text-[#1B6A4B] text-right truncate max-w-[160px]">
+                    {match.recycler.name}
                   </span>
-                  <div>
-                    <div className="text-sm font-bold text-[#12372A]">{match.recycler.name}</div>
-                    <div className="text-[11px] text-[#7D9187]">{match.recycler.location}</div>
-                  </div>
                 </div>
-                <div className="text-right">
-                  <div className="text-lg font-extrabold text-[#238B57]">{match.score}%</div>
-                  <div className="text-[10px] font-mono text-[#7D9187]">MATCH</div>
+
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-slate-600">Location</span>
+                  <span className="font-bold text-[#1B6A4B] text-right">
+                    {match.recycler.location} <span className="text-[10px] font-semibold text-slate-500">({match.distanceKm} km)</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-slate-600">Percentage match</span>
+                  <span className="font-bold text-[#1B6A4B] text-right">{match.score}%</span>
+                </div>
+
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-slate-600">Quantity</span>
+                  <span className="font-bold text-[#1B6A4B] text-right">
+                    {selectedWaste.quantity} {selectedWaste.unit}
+                  </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 text-[11px] mb-2.5">
-                <div className="bg-[#F6F5EF] rounded-lg px-2 py-1.5 text-center">
-                  <div className="text-[#7D9187] font-mono text-[10px]">Distance</div>
-                  <div className="font-bold text-[#12372A]">{match.distanceKm} km</div>
-                </div>
-                <div className="bg-[#F6F5EF] rounded-lg px-2 py-1.5 text-center">
-                  <div className="text-[#7D9187] font-mono text-[10px]">Capacity</div>
-                  <div className="font-bold text-[#12372A]">{match.recycler.processingCapacity} {match.recycler.capacityUnit}</div>
-                </div>
-                <div className="bg-[#F6F5EF] rounded-lg px-2 py-1.5 text-center">
-                  <div className="text-[#7D9187] font-mono text-[10px]">Material</div>
-                  <div className={`font-bold ${materialMatches ? 'text-[#238B57]' : 'text-[#C2413B]'}`}>
-                    {materialMatches ? '✓ Match' : '✗ No'}
-                  </div>
-                </div>
+              <div className="pt-2 border-t border-slate-100 text-[11px] text-slate-500 mb-3">
+                <span className="font-medium text-slate-700">Why:</span> accepts {selectedWaste.wasteType}, capacity {match.recycler.processingCapacity} {match.recycler.capacityUnit}, {match.distanceKm} km away.
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3 text-[11px]">
-                  <span className="flex items-center gap-1 text-amber-600">
-                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
-                    {match.recycler.rating}
-                  </span>
-                  {match.recycler.verified && (
-                    <span className="flex items-center gap-1 text-[#238B57]">
-                      <ShieldCheck className="w-3 h-3" /> Verified
-                    </span>
-                  )}
-                </div>
+              <div className="flex items-center justify-end">
                 <button
                   type="button"
                   onClick={() => onSelectRecycler(match.recycler)}
-                  className="flex items-center gap-1 px-3 py-1.5 bg-[#12372A] hover:bg-[#238B57] text-white text-[11px] font-bold rounded-lg transition cursor-pointer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#1B6A4B] hover:bg-[#15533A] text-white text-xs font-semibold rounded-xl transition cursor-pointer"
                 >
-                  Select
+                  <span>Select Recycler</span>
                   <ArrowRight className="w-3 h-3" />
                 </button>
               </div>

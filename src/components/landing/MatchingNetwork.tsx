@@ -93,95 +93,119 @@ export const MatchingNetwork: React.FC<Props> = ({ onViewMarketplace }) => {
           </div>
 
           <div className="lg:col-span-5 space-y-4">
+            {/* Card 1: GreenLoop */}
             <div
               onClick={() => setSelectedMatch('greenloop')}
-              className={`p-6 rounded-sm border-2 transition-all duration-200 cursor-pointer ${
+              className={`bg-white rounded-3xl p-6 sm:p-7 border shadow-xs transition-all duration-200 cursor-pointer ${
                 selectedMatch === 'greenloop'
-                  ? 'bg-[#FFFFFF] border-[#238B57] shadow-md ring-2 ring-[#238B57]/20'
-                  : 'bg-[#FFFFFF]/70 border-[#D9DDD5] hover:border-[#74A982]'
+                  ? 'border-[#238B57] ring-2 ring-[#238B57]/15'
+                  : 'border-slate-200 hover:border-slate-300'
               }`}
             >
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D9DDD5]">
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#238B57] uppercase tracking-wider">
-                    RECOMMENDED DISPATCH
-                  </div>
-                  <h4 className="text-xl font-extrabold text-[#12372A]">GREENLOOP</h4>
+              <div className="mb-4">
+                <span className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-medium bg-[#E5EFE8] text-[#235841]">
+                  Sample match · demo data
+                </span>
+              </div>
+
+              <div className="divide-y divide-slate-100 border-t border-slate-100">
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Company Name
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    GREENLOOP
+                  </span>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-black text-[#238B57] font-mono">96%</div>
-                  <div className="text-[10px] font-mono text-[#7D9187]">MATCH SCORE</div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Location
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    Bhosari MIDC, Pune <span className="text-xs font-semibold text-slate-500">(4.2 km)</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Percentage match
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    96%
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Quantity
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    500 kg
+                  </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-4 text-[#32483E]">
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">DISTANCE</div>
-                  <div className="font-bold text-[#12372A]">4.2 KM</div>
-                </div>
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">CAPACITY</div>
-                  <div className="font-bold text-[#12372A]">500–1000 KG</div>
-                </div>
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">STATUS</div>
-                  <div className="font-bold text-[#238B57]">AVAILABLE</div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-[#238B57]">
-                <span className="flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> PET ✓
-                </span>
-                <span className="flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> 500–1000 KG ✓
-                </span>
-                <span className="flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" /> AVAILABLE ✓
-                </span>
+              <div className="pt-3.5 border-t border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                <span className="font-semibold text-slate-700">Why:</span> accepts PET plastic, verified facility, closest to the pickup point (4.2 km).
               </div>
             </div>
 
+            {/* Card 2: Renew Materials */}
             <div
               onClick={() => setSelectedMatch('renew')}
-              className={`p-6 rounded-sm border transition-all duration-200 cursor-pointer ${
+              className={`bg-white rounded-3xl p-6 sm:p-7 border shadow-xs transition-all duration-200 cursor-pointer ${
                 selectedMatch === 'renew'
-                  ? 'bg-[#FFFFFF] border-[#12372A] shadow-md ring-2 ring-[#12372A]/10'
-                  : 'bg-[#FFFFFF]/70 border-[#D9DDD5] hover:border-[#74A982]'
+                  ? 'border-[#12372A] ring-2 ring-[#12372A]/10'
+                  : 'border-slate-200 hover:border-slate-300'
               }`}
             >
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#D9DDD5]">
-                <div>
-                  <div className="text-xs font-mono text-[#7D9187] uppercase tracking-wider">
-                    SECONDARY CANDIDATE
-                  </div>
-                  <h4 className="text-xl font-bold text-[#12372A]">RENEW MATERIALS</h4>
+              <div className="mb-4">
+                <span className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-medium bg-[#E5EFE8] text-[#235841]">
+                  Sample match · demo data
+                </span>
+              </div>
+
+              <div className="divide-y divide-slate-100 border-t border-slate-100">
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Company Name
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    RENEW MATERIALS
+                  </span>
                 </div>
-                <div className="text-right">
-                  <div className="text-2xl font-black text-[#556960] font-mono">82%</div>
-                  <div className="text-[10px] font-mono text-[#7D9187]">MATCH SCORE</div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Location
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    Chakan Industrial Area, Pune <span className="text-xs font-semibold text-slate-500">(8.7 km)</span>
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Percentage match
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    82%
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between py-3.5">
+                  <span className="text-sm sm:text-base text-slate-700 font-normal">
+                    Quantity
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#1B6A4B] text-right">
+                    1,000 kg
+                  </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3 text-[#32483E]">
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">DISTANCE</div>
-                  <div className="font-bold text-[#12372A]">8.7 KM</div>
-                </div>
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">CAPACITY</div>
-                  <div className="font-bold text-[#12372A]">1,000–5,000 KG</div>
-                </div>
-                <div className="bg-[#F6F5EF] p-2 rounded-xs">
-                  <div className="text-[10px] text-[#7D9187]">QUEUE</div>
-                  <div className="font-bold text-[#D97706]">2.5 HRS</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 font-mono text-xs text-[#556960]">
-                <span>Process: Chemical Depolymerization</span>
-                <span>•</span>
-                <span>Min Batch: 1,000 KG</span>
+              <div className="pt-3.5 border-t border-slate-100 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
+                <span className="font-semibold text-slate-700">Why:</span> chemical depolymerization capability, high batch capacity, regional corridor.
               </div>
             </div>
           </div>

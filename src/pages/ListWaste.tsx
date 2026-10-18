@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AIAnalysisResult, User, WasteCategory, WasteListing } from '../types';
-import { SAMPLE_WASTE_IMAGES, analyzeWasteImage } from '../services/aiService';
+import { analyzeWasteImage } from '../services/aiService';
 import { wasteStore } from '../services/wasteService';
 import confetti from 'canvas-confetti';
 import {
@@ -28,8 +28,8 @@ interface Props {
 export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
-  const [imagePreview, setImagePreview] = useState<string>(SAMPLE_WASTE_IMAGES[0].url);
-  const [selectedFileName, setSelectedFileName] = useState<string>('pet_plastic_bottles.jpg');
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [selectedFileName, setSelectedFileName] = useState<string>('');
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [aiResult, setAiResult] = useState<AIAnalysisResult | null>(null);
 
@@ -86,12 +86,12 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
     }
   };
 
-  const handleSelectSample = (sample: typeof SAMPLE_WASTE_IMAGES[0]) => {
-    setImagePreview(sample.url);
-    setSelectedFileName(`${sample.category.toLowerCase()}_sample.jpg`);
-  };
-
   const handleAnalyze = async () => {
+    if (!imagePreview) {
+      setErrorMessage('Please upload or select an image of your waste material first.');
+      setTimeout(() => setErrorMessage(null), 5000);
+      return;
+    }
     setIsAnalyzing(true);
     try {
       const result = await analyzeWasteImage(imagePreview, selectedFileName);
@@ -307,34 +307,11 @@ export const ListWaste: React.FC<Props> = ({ currentUser, navigate }) => {
             )}
           </div>
 
-          <div>
-            <span className="text-xs font-bold text-slate-600 block mb-2">
-              Or pick a sample material for instant hackathon evaluation:
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {SAMPLE_WASTE_IMAGES.map((sample) => (
-                <button
-                  key={sample.name}
-                  type="button"
-                  onClick={() => handleSelectSample(sample)}
-                  className={`p-2 rounded-xl border text-left flex items-center gap-2 text-xs transition cursor-pointer ${
-                    imagePreview === sample.url
-                      ? 'border-emerald-600 bg-emerald-50/60 font-semibold text-emerald-900 ring-1 ring-emerald-200'
-                      : 'border-slate-200 hover:border-slate-300 text-slate-700'
-                  }`}
-                >
-                  <img src={sample.url} alt={sample.name} className="w-8 h-8 rounded-lg object-cover shrink-0" />
-                  <span className="truncate">{sample.category}: {sample.name.split(' ')[0]}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
           <div className="flex items-center justify-end pt-4 border-t border-slate-100">
             <button
               type="button"
               onClick={handleAnalyze}
-              disabled={isAnalyzing}
+              disabled={isAnalyzing || !imagePreview}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm shadow-xs transition cursor-pointer disabled:opacity-50"
             >
               {isAnalyzing ? (
